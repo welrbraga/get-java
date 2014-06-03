@@ -97,7 +97,7 @@ VERSION="7u51"
 #2014-06-02 JRE SE 7u60 - O arquivo para 32bits não é executável
 URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=90214"
 URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=90216"
-VERSION="7u51"
+VERSION="7u60"
 
 ARCH=`uname -m`
 if [ "${ARCH}" == "x86_64" ]; then
