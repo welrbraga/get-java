@@ -20,7 +20,6 @@ COMO USAR
 ---------
 Após baixar o arquivo digite:
 
-$ sudo su -
-# chmod +x wrb-getjava.sh
-# ./wrb-getjava.sh
+$ sudo chmod +x wrb-getjava.sh
+$ sudo ./wrb-getjava.sh
 
