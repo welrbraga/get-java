@@ -176,7 +176,7 @@ function makealternatives() {
     update-alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so mozilla-javaplugin.so ${PLUGIN} 1000
     update-alternatives --set mozilla-javaplugin.so ${PLUGIN}
 
-    update-alternatives --install /usr/lib/firefox/plugins/libjavaplugin.so firefox-javaplugin.so ${PLUGIN} 1000
+    update-alternatives --install /usr/lib/firefox-addons/plugins/libjavaplugin.so firefox-javaplugin.so ${PLUGIN} 1000
     update-alternatives --set firefox-javaplugin.so ${PLUGIN}
 
     update-alternatives --install /usr/lib/xulrunner/plugins/libjavaplugin.so xulrunner-javaplugin.so ${PLUGIN} 1000
