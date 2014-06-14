@@ -151,9 +151,19 @@ export DOWNLOADEDJAVA
 
 
 function getjava() {
-    echo "Obtendo e instalando o Java"
-    wget "${URL}" -O ${DOWNLOADEDJAVA}
+    if [ ! -f "${DOWNLOADEDJAVA}" ]; then
+        echo "Obtendo o Java a partir do site oficial"
+        wget "${URL}" -O ${DOWNLOADEDJAVA}
+    else
+        echo "Usando download já existente em ${PATHJAVA}/${DOWNLOADEDJAVA}"
+        echo "Caso seja necessario baixar outro arquivo exclua este arquivo manualmente"
+	echo "com o comando abaixo:"
+	echo
+	echo "  $ sudo rm ${PATHJAVA}/${DOWNLOADEDJAVA}"
+        echo
+    fi
 
+    echo "Descompactando o Java"
     if [ "${VERSION:0:2}" == "6u" ]; then
         chmod +x ${DOWNLOADEDJAVA}
         ./${DOWNLOADEDJAVA}
@@ -164,6 +174,7 @@ function getjava() {
 
 function makealternatives() {
 
+    echo "Configurando nova versão como alternativa padrão"
     if [ "${VERSION:0:2}" == "6u" ]; then
         export `head -n 161 ${DOWNLOADEDJAVA}|grep "javahome="`
     else
