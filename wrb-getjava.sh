@@ -99,6 +99,11 @@ URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=90216"
 URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=90214"
 VERSION="7u60"
 
+#2014-08-01 JRE SE 7u65 - O arquivo para 32bits não é executável
+URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=92496"
+URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=92494"
+VERSION="7u65"
+
 ARCH=`uname -m`
 if [ "${ARCH}" == "x86_64" ]; then
     echo -n "Selecionada versão 64bits"
