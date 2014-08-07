@@ -12,9 +12,36 @@ COMO FUNCIONA
 O script verifica a arquitetura do seu sistema (32bits ou 64bits), baixa e 
 instala a versão adequada da JRE em /opt/java-$ARCH.
 
-Após instalada o script se encarrega de criar todos os links necessários para
+Após instalado o script se encarrega de criar todos os links necessários para
 que esta se torne a máquina Java padrão do seu sistema e possa ser utilizada 
 pelos navegadores web (testado apenas com Firefox e Google Chrome).
+
+COMO INSTALAR
+-------------
+
+Há três formas de instalar. Você pode escolher a que achar melhor sem que isso prejudique o funcionamento script e a instalação da JRE em seu sistema.
+
+Primeira forma (baixando um só arquivo):
+- Clique no arquivo "wrb-getjava.sh", com o botão direito do mouse;
+- Escolha a opção "Salvar link como"
+- Clique no botão "Salvar"
+- Pela janela de terminal use o comando "cd" para entrar no diretório onde o arquivo foi salvo (geralmente na pasta "Downloads");
+- Siga o procedimento descrito na seção "COMO USAR".
+
+Segunda forma (baixando todo o último release):
+- Clique no link "releases", no alto da página;
+- Abaixo da lista de releases haverá um link para download de cada release disponível, em formato "zip" e em formato "tar.gz". Clique no link que você achar mais adequado para baixar o arquivo;
+- Descompacte o arquivo baixado usando a ferramenta ou comando adequado para o formato escolhido (pode usar usando o seu gerenciador de arquivos ou comandos unizip e tar pelo terminal);
+- Entre na pasta "get-java-XXXX" usando o comando "cd", a linha de comandos;
+- Siga o procedimento descrito na seção "COMO USAR".
+
+Terceira forma (mantenha-se atualizado com o git):
+- Caso o seu sistema ainda não tenha o git instalado, instale-o com o comando "sudo apt-get install git";
+- Com o "git" instalado em seu sistema você deverá clonar o repositório no endereço "https://github.com/welrbraga/get-java.git", com o comando a seguir:
+
+$ git clone https://github.com/welrbraga/get-java.git
+
+- Siga o procedimento descrito na seção "COMO USAR".
 
 COMO USAR
 ---------
@@ -28,7 +55,9 @@ $ sudo ./wrb-getjava.sh
 Observações
 -----------
 
-Caso o pacoe Java já tenha sido baixado antes e você execute o script pela segunda
+Caso o pacote Java já tenha sido baixado antes e você execute o script pela segunda
 vez o pacote não será baixado novamente. Caso ele tenha vindo corrompido da vez 
-anterior você deverá removê-lo manualmente e então executar o script outra vez.
+anterior e você precise executar a instalação novamente você deverá removê-lo 
+manualmente antes de executar o script outra vez (Como já dito o pacote é baixado
+em /opt/java-$ARCH).
 
