@@ -14,7 +14,9 @@ instala a versão adequada da JRE em /opt/java-$ARCH.
 
 Após instalado o script se encarrega de criar todos os links necessários para
 que esta se torne a máquina Java padrão do seu sistema e possa ser utilizada 
-pelos navegadores web (testado apenas com Firefox e Google Chrome).
+pelos navegadores web (testado apenas com Firefox e Google Chrome**).
+
+** Ver nota sobre o Gogole Chrome ainda neste README.
 
 COMO INSTALAR
 -------------
@@ -61,3 +63,16 @@ anterior e você precise executar a instalação novamente você deverá removê
 manualmente antes de executar o script outra vez (Como já dito o pacote é baixado
 em /opt/java-$ARCH).
 
+
+Sobre o Google Chrome
+---------------------
+
+Desde o Update 35, o Google Chrome deixou de suportar a máquina virtual JVM 7 em 
+ambientes Linux. Portanto se você realmente precisa usar uma JVM no Linux+Chrome
+ou você usa uma JVM 6, ou tenta usar um release do Google Chrome anterior ao 35, 
+lançado em Abril/2014.
+
+Referências a este caso são:
+http://blog.chromium.org/2013/09/saying-goodbye-to-our-old-friend-npapi.html
+http://java.com/en/download/faq/chrome.xml
+http://www.java.com/pt_BR/download/faq/chrome.xml
