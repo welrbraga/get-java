@@ -109,6 +109,12 @@ URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=95116"
 URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=95114"
 VERSION="7u67"
 
+#2014-10-14 JRE SE 7u71 - O arquivo para 32bits não é executável 
+# Aparentemente ultimo release do JAVA 7
+URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=97800"
+URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=97798"
+VERSION="7u71"
+
 ARCH=`uname -m`
 if [ "${ARCH}" == "x86_64" ]; then
     echo -n "Selecionada versão 64bits"
