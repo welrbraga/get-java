@@ -156,6 +156,15 @@ URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=97798"
 VERSION="7u71"
 }
 
+
+function jre7u75() {
+#2015-02-02 JRE SE 7u75 - O arquivo para 32bits não é executável 
+# Aparentemente ultimo release do JAVA 7
+URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=101460"
+URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=101458"
+VERSION="7u75"
+}
+
 ##############################
 
 function set_arch() {
@@ -181,7 +190,7 @@ if [ "$UID" != "0" ]; then
 	exit
 fi
 
-jre7u71
+jre7u75
 set_arch
 
 echo "Configurando o diretório onde a nova versão do Java será armazenada"
