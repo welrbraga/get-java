@@ -165,7 +165,7 @@ URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=101458"
 VERSION="7u75"
 }
 
-##############################
+LASTJRE="7u75"
 
 function set_arch() {
 ARCH=`uname -m`
@@ -184,35 +184,10 @@ else
 fi
 }
 
-if [ "$UID" != "0" ]; then
-	echo "Você precisa ser administrador para conseguir instalar a máquina Java em seu sistema"
-	echo "Tente novamente com: sudo $0"
-	exit
-fi
-
-jre7u75
-set_arch
-
-echo "Configurando o diretório onde a nova versão do Java será armazenada"
-PATHJAVA="/opt/java-${ARCHPLUGIN}"
-[ -d "${PATHJAVA}" ] || mkdir -p "${PATHJAVA}"
-cd "${PATHJAVA}"
-
-
-#Arquivo binário baixado do site do Java
-if [ "${VERSION:0:2}" == "6u" ]; then
-    DOWNLOADEDJAVA="java-${ARCHPLUGIN}-${VERSION}.bin"
-else
-    DOWNLOADEDJAVA="java-${ARCHPLUGIN}-${VERSION}.tar.gz"
-fi
-#
-export DOWNLOADEDJAVA
-
-
 function getjava() {
     if [ ! -f "${DOWNLOADEDJAVA}" ]; then
         echo "Obtendo o Java a partir do site oficial"
-        wget "${URL}" -O ${DOWNLOADEDJAVA}
+		wget "${URL}" -O ${DOWNLOADEDJAVA}
     else
         echo "Usando download já existente em ${PATHJAVA}/${DOWNLOADEDJAVA}"
         echo "Caso seja necessario baixar outro arquivo exclua este arquivo manualmente"
@@ -224,7 +199,7 @@ function getjava() {
 
     echo "Descompactando o Java"
     if [ "${VERSION:0:2}" == "6u" ]; then
-        chmod +x ${DOWNLOADEDJAVA}
+		chmod +x ${DOWNLOADEDJAVA}
         ./${DOWNLOADEDJAVA}
     else
         tar xzf ${DOWNLOADEDJAVA}
@@ -244,8 +219,8 @@ function makealternatives() {
     PLUGIN="${PATHJAVA}/${javahome}/${FILEPLUGIN}"
 
     update-alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so mozilla-javaplugin.so ${PLUGIN} 1000
-    update-alternatives --set mozilla-javaplugin.so ${PLUGIN}
-
+	update-alternatives --set mozilla-javaplugin.so ${PLUGIN}
+ 
     update-alternatives --install /usr/lib/firefox-addons/plugins/libjavaplugin.so firefox-javaplugin.so ${PLUGIN} 1000
     update-alternatives --set firefox-javaplugin.so ${PLUGIN}
 
@@ -292,7 +267,45 @@ function makealternatives() {
 
 }
 
+###############################################################################
+# INICIO DO SCRIPT
+###############################################################################
+
+
+if [ "$UID" != "0" ]; then
+	echo "Você precisa ser administrador para conseguir instalar a máquina Java em seu sistema"
+	echo "Tente novamente com: sudo $0"
+	exit
+fi
+
+#Baixa a última versao da JRE ou a versão solicitada
+if [ "$1" == "" ]; then
+	JRE=${LASTJRE}
+else
+	JRE=$1
+fi
+
+"jre${JRE}"
+
+
+set_arch
+
+echo "Configurando o diretório onde a nova versão do Java será armazenada"
+PATHJAVA="/opt/java-${ARCHPLUGIN}"
+[ -d "${PATHJAVA}" ] || mkdir -p "${PATHJAVA}"
+cd "${PATHJAVA}"
+
+
+#Arquivo binário baixado do site do Java
+if [ "${VERSION:0:2}" == "6u" ]; then
+    DOWNLOADEDJAVA="java-${ARCHPLUGIN}-${VERSION}.bin"
+else
+    DOWNLOADEDJAVA="java-${ARCHPLUGIN}-${VERSION}.tar.gz"
+fi
+#
+
 getjava
+
 makealternatives
 
 echo "Done"
