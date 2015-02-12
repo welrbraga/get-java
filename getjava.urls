@@ -1,0 +1,36 @@
+#Arquivo com URLs das JRE que disponíveis para instalação via script get-java
+#Formato RELEASE|URL64BITS|URL32BITS
+#Linhas com '#' são ignoradas e a primeira linha válida é sempre um código de
+#compatibilidade com o script instalado na máquina do cliente
+A|A|A
+#
+6u30|http://javadl.sun.com/webapps/download/AutoDL?BundleId=58119|http://javadl.sun.com/webapps/download/AutoDL?BundleId=58117
+6u31|http://javadl.sun.com/webapps/download/AutoDL?BundleId=59623|http://javadl.sun.com/webapps/download/AutoDL?BundleId=59621
+6u34|http://javadl.sun.com/webapps/download/AutoDL?BundleId=66975|http://javadl.sun.com/webapps/download/AutoDL?BundleId=66973
+6u35|http://javadl.sun.com/webapps/download/AutoDL?BundleId=68286|http://javadl.sun.com/webapps/download/AutoDL?BundleId=68284
+6u38|http://javadl.sun.com/webapps/download/AutoDL?BundleId=71305|http://javadl.sun.com/webapps/download/AutoDL?BundleId=71303
+#
+7u4|http://javadl.sun.com/webapps/download/AutoDL?BundleId=63204|http://javadl.sun.com/webapps/download/AutoDL?BundleId=63202
+7u6|http://javadl.sun.com/webapps/download/AutoDL?BundleId=67388|http://javadl.sun.com/webapps/download/AutoDL?BundleId=67386
+7u7|http://javadl.sun.com/webapps/download/AutoDL?BundleId=68236|http://javadl.sun.com/webapps/download/AutoDL?BundleId=66234
+#
+7u10|http://javadl.sun.com/webapps/download/AutoDL?BundleId=71828|http://javadl.sun.com/webapps/download/AutoDL?BundleId=71826
+7u11|http://javadl.sun.com/webapps/download/AutoDL?BundleId=73134|http://javadl.sun.com/webapps/download/AutoDL?BundleId=73132
+7u15|http://javadl.sun.com/webapps/download/AutoDL?BundleId=74774|http://javadl.sun.com/webapps/download/AutoDL?BundleId=74772
+7u17|http://javadl.sun.com/webapps/download/AutoDL?BundleId=75252|http://javadl.sun.com/webapps/download/AutoDL?BundleId=75250
+#
+7u21|http://javadl.sun.com/webapps/download/AutoDL?BundleId=76853|http://javadl.sun.com/webapps/download/AutoDL?BundleId=76851
+7u25|http://javadl.sun.com/webapps/download/AutoDL?BundleId=78697|http://javadl.sun.com/webapps/download/AutoDL?BundleId=78695
+7u40|http://javadl.sun.com/webapps/download/AutoDL?BundleId=80805|http://javadl.sun.com/webapps/download/AutoDL?BundleId=80803
+7u45|http://javadl.sun.com/webapps/download/AutoDL?BundleId=81812|http://javadl.sun.com/webapps/download/AutoDL?BundleId=81810
+7u51|http://javadl.sun.com/webapps/download/AutoDL?BundleId=83376|http://javadl.sun.com/webapps/download/AutoDL?BundleId=83374
+#
+7u60|http://javadl.sun.com/webapps/download/AutoDL?BundleId=90216|http://javadl.sun.com/webapps/download/AutoDL?BundleId=90214
+7u65|http://javadl.sun.com/webapps/download/AutoDL?BundleId=92496|http://javadl.sun.com/webapps/download/AutoDL?BundleId=92494
+7u67|http://javadl.sun.com/webapps/download/AutoDL?BundleId=95116|http://javadl.sun.com/webapps/download/AutoDL?BundleId=95114
+#
+7u71|http://javadl.sun.com/webapps/download/AutoDL?BundleId=97800|http://javadl.sun.com/webapps/download/AutoDL?BundleId=97798
+7u75|http://javadl.sun.com/webapps/download/AutoDL?BundleId=101460|http://javadl.sun.com/webapps/download/AutoDL?BundleId=101458
+
+
+
