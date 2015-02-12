@@ -49,9 +49,9 @@ function set_release() {
 	else
 		echo "Arquivo URLs versão ${FORMATFILE} aceito"
 		echo
-		VERSION=`grep "^${JRERELEASE}" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 1`
-		URL64=`grep "^${JRERELEASE}" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 2`
-		URL32=`grep "^${JRERELEASE}" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 3`
+		VERSION=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 1`
+		URL64=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 2`
+		URL32=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 3`
 	fi
 
 	if [ "${VERSION}" == "" ]
