@@ -8,211 +8,115 @@
 
 #URLS obtidas em http://www.java.com/pt_BR/download/manual.jsp
 
-function jre6u30() {
-#2011-12-30 JRE SE 6u30
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=58119"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=58117"
-VERSION="6u30"
+
+#Lista todos os releases de JRE disponíveis para download
+function list_releases() {
+	echo "Os seguintes releases do JRE estão disponíveis para download"
+	grep -Ev '^#|^$' "${CACHEDIR}/${URLFILE}"| cut -d'|' -f 1
 }
 
-function jre6u31() {
-#2012-03-02 JRE SE 6u31
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=59623"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=59621"
-VERSION="6u31"
+#Le o arquivo de URLs disponíveis e verifica a URL da JRE desejada
+#Recebe dois parâmetros o "formato do arquivo" e a versão desejada do JRE
+# (Obs: A versão é opcional e caso não seja passada considera a última
+#versão disponível
+function set_release() {
+	#Cria o diretório de cache caso não exista
+	if [ ! -d "${CACHEDIR}" ]
+	then
+		mkdir -p "${CACHEDIR}"
+	fi
+
+	echo "* Baixando novo arquivo de URLs disponíveis..."
+	wget -q "${URLCACHE}" -O "${CACHEDIR}/${URLFILE}"
+
+	FORMATFILE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 1`
+	LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
+	VALIDFORMAT="$1"
+	JRERELEASE="$2"
+
+	#Se não especificou a RELEASE a ser isntalada usa a última disponível
+	if [ "${JRERELEASE}" == "" ]
+	then
+		JRERELEASE="${LASTJRE}"
+	fi
+
+	if [ ! "${FORMATFILE}" == "${VALIDFORMAT}" ]
+	then
+		echo
+		echo "ERRO: A Versão do arquivo de URLs disponível não é compatível com a versão do script que você está usando."
+		echo "Faça o download da nova versão do script a partir do Github em https://github.com/welrbraga/get-java"
+		echo
+		echo "Abortando!"
+		exit
+	else
+		echo "Arquivo URLs versão ${FORMATFILE} aceito"
+		echo
+		VERSION=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 1`
+		URL64=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 2`
+		URL32=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 3`
+	fi
+
+	if [ "${VERSION}" == "" ]
+	then
+		echo "ERRO: O Release ${JRERELEASE} do JRE não está disponível.
+Certifique-se de informar uma versão válida e que esteja disponível para download"
+		echo
+		list_releases
+		echo
+		echo "Abortando!"
+		exit
+	fi
 }
 
-function jre6u34() {
-#2012-08-24 JRE SE 6u34
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=66975"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=66973"
-VERSION="6u34"
-}
-
-function jre6u35() {
-#2012-10-14 JRE SE 6u35
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=68286"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=68284"
-VERSION="6u35"
-}
-
-function jre6u38() {
-#2012-12-27 JRE SE 6u38
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=71305"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=71303"
-VERSION="6u38"
-}
-
-function jre7u4() {
-#2012-03-02 JRE SE 7u4 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=63204"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=63202"
-VERSION="7u4"
-}
-
-function jre7u6() {
-#2012-08-21 JRE SE 7u6 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=67388"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=67386"
-VERSION="7u6"
-}
-
-function jre7u7() {
-#2012-10-14 JRE SE 7u7 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=68236"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=66234"
-VERSION="7u7"
-}
-
-function jre7u10() {
-#2012-12-27 JRE SE 7u10 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=71828"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=71826"
-VERSION="7u10"
-}
-
-function jre7u11() {
-#2013-01-19 JRE SE 7u11 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=73134"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=73132"
-VERSION="7u11"
-}
-
-function jre7u15() {
-#2013-02-24 JRE SE 7u15 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=74774"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=74772"
-VERSION="7u15"
-}
-
-function jre7u17() {
-#2013-03-19 JRE SE 7u17 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=75252"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=75250"
-VERSION="7u17"
-}
-
-function jre7u21() {
-#2013-04-19 JRE SE 7u21 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=76853"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=76851"
-VERSION="7u21"
-}
-
-function jre7u25() {
-#2013-06-26 JRE SE 7u25 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=78697"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=78695"
-VERSION="7u25"
-}
-
-function jre7u40() {
-#2013-09-12 JRE SE 7u40 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=80805"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=80803"
-VERSION="7u40"
-}
-
-function jre7u45() {
-#2013-10-20 JRE SE 7u45 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=81812"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=81810"
-VERSION="7u45"
-}
-
-function jre7u51() {
-#2014-01-23 JRE SE 7u51 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=83376"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=83374"
-VERSION="7u51"
-}
-
-function jre7u60() {
-#2014-06-02 JRE SE 7u60 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=90216"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=90214"
-VERSION="7u60"
-}
-
-function jre7u65() {
-#2014-08-01 JRE SE 7u65 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=92496"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=92494"
-VERSION="7u65"
-}
-
-function jre7u67() {
-#2014-08-21 JRE SE 7u67 - O arquivo para 32bits não é executável
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=95116"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=95114"
-VERSION="7u67"
-}
-
-function jre7u71() {
-#2014-10-14 JRE SE 7u71 - O arquivo para 32bits não é executável 
-# Aparentemente ultimo release do JAVA 7
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=97800"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=97798"
-VERSION="7u71"
-}
-
-
-function jre7u75() {
-#2015-02-02 JRE SE 7u75 - O arquivo para 32bits não é executável 
-# Aparentemente ultimo release do JAVA 7
-URL64="http://javadl.sun.com/webapps/download/AutoDL?BundleId=101460"
-URL32="http://javadl.sun.com/webapps/download/AutoDL?BundleId=101458"
-VERSION="7u75"
-}
-
-LASTJRE="7u75"
-
+#Verifica qual é  arquitetura do sistema para baixar a JRE adequada a ela
 function set_arch() {
 ARCH=`uname -m`
 if [ "${ARCH}" == "x86_64" ]; then
-    echo -n "Selecionada versão 64bits"
+    echo -n "* Selecionada versão 64bits"
     URL=${URL64}
     ARCHPLUGIN="amd64"
 # desde  a versao 12.04 o ubuntu usa o arquivo libnpjp2.so como plugin
     FILEPLUGIN="lib/${ARCHPLUGIN}/libnpjp2.so"
     echo ""
 else
-    echo "Selecionada versão 32bits"
+    echo "* Selecionada versão 32bits"
     URL=${URL32}
     ARCHPLUGIN="i386"
     FILEPLUGIN="lib/${ARCHPLUGIN}/libnpjp2.so"
 fi
 }
 
+#Faz o download e descompacta o pacote com a JRE selecionada
 function getjava() {
-    if [ ! -f "${DOWNLOADEDJAVA}" ]; then
-        echo "Obtendo o Java a partir do site oficial"
-		wget "${URL}" -O ${DOWNLOADEDJAVA}
+    if [ ! -f "${CACHEDIR}/${DOWNLOADEDJAVA}" ]; then
+	echo "* Obtendo o Java a partir do site oficial. Aguarde..."
+	wget -q "${URL}" -O "${CACHEDIR}/${DOWNLOADEDJAVA}"
     else
-        echo "Usando download já existente em ${PATHJAVA}/${DOWNLOADEDJAVA}"
+        echo "AVISO: Usando download já existente em ${CACHEDIR}/${DOWNLOADEDJAVA}."
         echo "Caso seja necessario baixar outro arquivo exclua este arquivo manualmente"
 	echo "com o comando abaixo:"
 	echo
-	echo "  $ sudo rm ${PATHJAVA}/${DOWNLOADEDJAVA}"
+	echo "  $ sudo rm ${CACHEDIR}/${DOWNLOADEDJAVA}"
         echo
     fi
 
-    echo "Descompactando o Java"
+    echo "* Descompactando o pacote Java"
     if [ "${VERSION:0:2}" == "6u" ]; then
-		chmod +x ${DOWNLOADEDJAVA}
-        ./${DOWNLOADEDJAVA}
+	chmod +x "${CACHEDIR}/${DOWNLOADEDJAVA}"
+	"${CACHEDIR}/${DOWNLOADEDJAVA}"
     else
-        tar xzf ${DOWNLOADEDJAVA}
+	tar xzf "${CACHEDIR}/${DOWNLOADEDJAVA}"
     fi
 }
 
+#Configura a JRE descompactada como default do sistema
 function makealternatives() {
 
-    echo "Configurando nova versão como alternativa padrão"
+    echo "* Configurando alternativas do sistema padrão"
     if [ "${VERSION:0:2}" == "6u" ]; then
-        export `head -n 161 ${DOWNLOADEDJAVA}|grep "javahome="`
+        export `head -n 161 ${CACHEDIR}/${DOWNLOADEDJAVA}|grep "javahome="`
     else
-        javahome=$(dirname `tar tf ${DOWNLOADEDJAVA}|grep release`)
+        javahome=$(dirname `tar tf ${CACHEDIR}/${DOWNLOADEDJAVA}|grep release`)
         export javahome
     fi
     
@@ -271,9 +175,12 @@ function makealternatives() {
 # INICIO DO SCRIPT
 ###############################################################################
 
+URLCACHE="https://raw.githubusercontent.com/welrbraga/get-java/master/getjava.urls"
+CACHEDIR="/var/cache/getjava"
+URLFILE="getjava.urls"
 
 if [ "$UID" != "0" ]; then
-	echo "Você precisa ser administrador para conseguir instalar a máquina Java em seu sistema"
+	echo "ERRO: Você precisa ser administrador para conseguir instalar a máquina Java em seu sistema"
 	echo "Tente novamente com: sudo $0"
 	exit
 fi
@@ -285,12 +192,11 @@ else
 	JRE=$1
 fi
 
-"jre${JRE}"
-
+set_release "B" ${JRE}
 
 set_arch
 
-echo "Configurando o diretório onde a nova versão do Java será armazenada"
+echo "* Configurando o diretório onde a nova versão do Java será armazenada"
 PATHJAVA="/opt/java-${ARCHPLUGIN}"
 [ -d "${PATHJAVA}" ] || mkdir -p "${PATHJAVA}"
 cd "${PATHJAVA}"
