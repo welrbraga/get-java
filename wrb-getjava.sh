@@ -11,7 +11,8 @@
 
 #Lista todos os releases de JRE disponíveis para download
 function list_releases() {
-grep -Ev '^#|^$' getjava.urls| cut -d'|' -f 1
+	echo "Os seguintes releases do JRE estão disponíveis para download"
+	grep -Ev '^#|^$' "${CACHEDIR}/${URLFILE}"| cut -d'|' -f 1
 }
 
 #Le o arquivo de URLs disponíveis e verifica a URL da JRE desejada
@@ -59,6 +60,8 @@ function set_release() {
 	then
 		echo "ERRO: O Release ${JRERELEASE} do JRE não está disponível.
 Certifique-se de informar uma versão válida e que esteja disponível para download"
+		echo
+		list_releases
 		echo
 		echo "Abortando!"
 		exit
