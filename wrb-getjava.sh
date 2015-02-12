@@ -10,6 +10,9 @@
 
 
 #Le o arquivo de URLs disponíveis e verifica a URL da JRE desejada
+#Recebe dois parâmetros o "formato do arquivo" e a versão desejada do JRE
+# (Obs: A versão é opcional e caso não seja passada considera a última
+#versão disponível
 function set_release() {
 	URLCACHE="https://raw.githubusercontent.com/welrbraga/get-java/master/getjava.urls"
 	CACHEDIR="/var/cache/getjava"
@@ -24,9 +27,9 @@ function set_release() {
 	echo "* Baixando novo arquivo de URLs disponíveis..."
 	wget -q "${URLCACHE}" -O "${CACHEDIR}/${URLFILE}"
 
-	FILEVERSION=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 1`
+	FORMATFILE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 1`
 	LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
-	ACCEPTVERSION="$1"
+	VALIDFORMAT="$1"
 	JRERELEASE="$2"
 
 	#Se não especificou a RELEASE a ser isntalada usa a última disponível
@@ -35,7 +38,7 @@ function set_release() {
 		JRERELEASE="${LASTJRE}"
 	fi
 
-	if [ ! "${FILEVERSION}" == "${ACCEPTVERSION}" ]
+	if [ ! "${FORMATFILE}" == "${VALIDFORMAT}" ]
 	then
 		echo
 		echo "ERRO: A Versão do arquivo de URLs disponível não é compatível com a versão do script que você está usando."
@@ -44,12 +47,21 @@ function set_release() {
 		echo "Abortando!"
 		exit
 	else
-		echo "Arquivo URLs versão ${FILEVERSION} aceito"
+		echo "Arquivo URLs versão ${FORMATFILE} aceito"
+		echo
 		VERSION=`grep "^${JRERELEASE}" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 1`
 		URL64=`grep "^${JRERELEASE}" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 2`
 		URL32=`grep "^${JRERELEASE}" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 3`
 	fi
 
+	if [ "${VERSION}" == "" ]
+	then
+		echo "ERRO: O Release ${JRERELEASE} do JRE não está disponível.
+Certifique-se de informar uma versão válida e que esteja disponível para download"
+		echo
+		echo "Abortando!"
+		exit
+	fi
 }
 
 #Verifica qual é  arquitetura do sistema para baixar a JRE adequada a ela
