@@ -15,6 +15,7 @@ function set_release() {
 	CACHEDIR="/var/cache/getjava"
 	URLFILE="getjava.urls"
 
+	#Cria o diretório de cache caso não exista
 	if [ ! -d "${CACHEDIR}" ]
 	then
 		mkdir -p "${CACHEDIR}"
@@ -23,10 +24,17 @@ function set_release() {
 	echo "* Baixando novo arquivo de URLs disponíveis..."
 	wget -q "${URLCACHE}" -O "${CACHEDIR}/${URLFILE}"
 
-	FILEVERSION=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1`
+	FILEVERSION=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 1`
+	LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
 	ACCEPTVERSION="$1"
 	JRERELEASE="$2"
-	LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
+
+	#Se não especificou a RELEASE a ser isntalada usa a última disponível
+	if [ "${JRERELEASE}" == "" ]
+	then
+		JRERELEASE="${LASTJRE}"
+	fi
+
 	if [ ! "${FILEVERSION}" == "${ACCEPTVERSION}" ]
 	then
 		echo
