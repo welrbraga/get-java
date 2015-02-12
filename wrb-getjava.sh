@@ -72,14 +72,14 @@ Certifique-se de informar uma versão válida e que esteja disponível para down
 function set_arch() {
 ARCH=`uname -m`
 if [ "${ARCH}" == "x86_64" ]; then
-    echo -n "Selecionada versão 64bits"
+    echo -n "* Selecionada versão 64bits"
     URL=${URL64}
     ARCHPLUGIN="amd64"
 # desde  a versao 12.04 o ubuntu usa o arquivo libnpjp2.so como plugin
     FILEPLUGIN="lib/${ARCHPLUGIN}/libnpjp2.so"
     echo ""
 else
-    echo "Selecionada versão 32bits"
+    echo "* Selecionada versão 32bits"
     URL=${URL32}
     ARCHPLUGIN="i386"
     FILEPLUGIN="lib/${ARCHPLUGIN}/libnpjp2.so"
@@ -89,10 +89,10 @@ fi
 #Faz o download e descompacta o pacote com a JRE selecionada
 function getjava() {
     if [ ! -f "${DOWNLOADEDJAVA}" ]; then
-        echo "Obtendo o Java a partir do site oficial"
-		wget "${URL}" -O ${DOWNLOADEDJAVA}
+        echo "* Obtendo o Java a partir do site oficial. Aguarde..."
+		wget -q "${URL}" -O ${DOWNLOADEDJAVA}
     else
-        echo "Usando download já existente em ${PATHJAVA}/${DOWNLOADEDJAVA}"
+        echo "AVISO: Usando download já existente em ${PATHJAVA}/${DOWNLOADEDJAVA}."
         echo "Caso seja necessario baixar outro arquivo exclua este arquivo manualmente"
 	echo "com o comando abaixo:"
 	echo
@@ -100,7 +100,7 @@ function getjava() {
         echo
     fi
 
-    echo "Descompactando o Java"
+    echo "* Descompactando o pacote Java"
     if [ "${VERSION:0:2}" == "6u" ]; then
 		chmod +x ${DOWNLOADEDJAVA}
         ./${DOWNLOADEDJAVA}
@@ -112,7 +112,7 @@ function getjava() {
 #Configura a JRE descompactada como default do sistema
 function makealternatives() {
 
-    echo "Configurando nova versão como alternativa padrão"
+    echo "* Configurando alternativas do sistema padrão"
     if [ "${VERSION:0:2}" == "6u" ]; then
         export `head -n 161 ${DOWNLOADEDJAVA}|grep "javahome="`
     else
@@ -180,7 +180,7 @@ CACHEDIR="/var/cache/getjava"
 URLFILE="getjava.urls"
 
 if [ "$UID" != "0" ]; then
-	echo "Você precisa ser administrador para conseguir instalar a máquina Java em seu sistema"
+	echo "ERRO: Você precisa ser administrador para conseguir instalar a máquina Java em seu sistema"
 	echo "Tente novamente com: sudo $0"
 	exit
 fi
@@ -194,19 +194,9 @@ fi
 
 set_release "B" ${JRE}
 
-echo $URL64
-echo $URL32
-echo $VERSION
-#DEBUG
-echo "Prosseguiria..."
-exit
-
-"jre${JRE}"
-
-
 set_arch
 
-echo "Configurando o diretório onde a nova versão do Java será armazenada"
+echo "* Configurando o diretório onde a nova versão do Java será armazenada"
 PATHJAVA="/opt/java-${ARCHPLUGIN}"
 [ -d "${PATHJAVA}" ] || mkdir -p "${PATHJAVA}"
 cd "${PATHJAVA}"
