@@ -14,8 +14,20 @@ LASTJRE="7u75"
 
 #Le o arquivo de URLs disponíveis e verifica a URL da JRE desejada
 function set_release() {
+	#TODO: Mudar para uma URL pública no Github
+	URLCACHE="https://bitbucket.org/welrbraga/get-java/raw/1d6767e7ae73f9ccd4bf1cf97348fa4bb9b86b29/getjava.urls"
+
+	CACHEDIR="/var/cache/getjava"
 	URLFILE="getjava.urls"
-	FILEVERSION=`grep -vE '^$|^#' "${URLFILE}" |head -n1`
+
+	if [ ! -d "${CACHEDIR}" ]
+	then
+		mkdir -p "${CACHEDIR}"
+	fi
+
+	wget "${URLCACHE}" -O "${CACHEDIR}/${URLFILE}"
+
+	FILEVERSION=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1`
 	ACCEPTVERSION="$1"
 	JRERELEASE="$2"
 
@@ -26,9 +38,9 @@ function set_release() {
 		exit
 	else
 		echo "Arquivo URLs versão ${FILEVERSION} aceito"
-		VERSION=`grep "^${JRERELEASE}" "${URLFILE}"|cut -d '|' -f 1`
-		URL64=`grep "^${JRERELEASE}" "${URLFILE}"|cut -d '|' -f 2`
-		URL32=`grep "^${JRERELEASE}" "${URLFILE}"|cut -d '|' -f 3`
+		VERSION=`grep "^${JRERELEASE}" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 1`
+		URL64=`grep "^${JRERELEASE}" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 2`
+		URL32=`grep "^${JRERELEASE}" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 3`
 	fi
 
 }
