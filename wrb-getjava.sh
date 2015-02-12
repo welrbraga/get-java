@@ -167,6 +167,21 @@ VERSION="7u75"
 
 LASTJRE="7u75"
 
+function set_release() {
+	URLVERSION=`grep -vE '^$|^#' getjava.urls |head -n1`
+	ACCEPTVERSION="$1"
+
+	if [ ! "${URLVERSION}" == "${ACCEPTVERSION}" ]
+	then
+		echo "Versão do arquivo de URLs invalida"
+		echo "Abortando"
+		exit
+	else
+		echo "Versão $URLVERSION aceita"
+	fi
+
+}
+
 function set_arch() {
 ARCH=`uname -m`
 if [ "${ARCH}" == "x86_64" ]; then
@@ -284,6 +299,15 @@ if [ "$1" == "" ]; then
 else
 	JRE=$1
 fi
+
+set_release "A|A|A" ${JRE}
+
+echo $URL64
+echo $URL32
+echo $VERSION
+#DEBUG
+echo "Prosseguiria..."
+exit
 
 "jre${JRE}"
 
