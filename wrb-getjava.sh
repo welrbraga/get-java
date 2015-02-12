@@ -8,15 +8,10 @@
 
 #URLS obtidas em http://www.java.com/pt_BR/download/manual.jsp
 
-#DEBUG - DAR UM JEITO DE REMOVER ISSO
-LASTJRE="7u75"
-
 
 #Le o arquivo de URLs disponíveis e verifica a URL da JRE desejada
 function set_release() {
-	#TODO: Mudar para uma URL pública no Github
-	URLCACHE="https://bitbucket.org/welrbraga/get-java/raw/1d6767e7ae73f9ccd4bf1cf97348fa4bb9b86b29/getjava.urls"
-
+	URLCACHE="https://raw.githubusercontent.com/welrbraga/get-java/master/getjava.urls"
 	CACHEDIR="/var/cache/getjava"
 	URLFILE="getjava.urls"
 
@@ -25,15 +20,19 @@ function set_release() {
 		mkdir -p "${CACHEDIR}"
 	fi
 
-	wget "${URLCACHE}" -O "${CACHEDIR}/${URLFILE}"
+	echo "* Baixando novo arquivo de URLs disponíveis..."
+	wget -q "${URLCACHE}" -O "${CACHEDIR}/${URLFILE}"
 
 	FILEVERSION=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1`
 	ACCEPTVERSION="$1"
 	JRERELEASE="$2"
-
+	LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
 	if [ ! "${FILEVERSION}" == "${ACCEPTVERSION}" ]
 	then
-		echo "Versão do arquivo de URLs invalida"
+		echo
+		echo "ERRO: A Versão do arquivo de URLs disponível não é compatível com a versão do script que você está usando."
+		echo "Faça o download da nova versão do script a partir do Github em https://github.com/welrbraga/get-java"
+		echo
 		echo "Abortando!"
 		exit
 	else
@@ -166,7 +165,7 @@ else
 	JRE=$1
 fi
 
-set_release "A|A|A" ${JRE}
+set_release "B" ${JRE}
 
 echo $URL64
 echo $URL32
