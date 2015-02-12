@@ -89,7 +89,7 @@ fi
 #Faz o download e descompacta o pacote com a JRE selecionada
 function getjava() {
     if [ ! -f "${CACHEDIR}/${DOWNLOADEDJAVA}" ]; then
-	echo "* Obtendo o Java a partir do site oficial. Aguarde..."
+	echo "* Obtendo o Java ${JRERELEASE} a partir do site oficial. Aguarde..."
 	wget -q "${URL}" -O "${CACHEDIR}/${DOWNLOADEDJAVA}"
     else
         echo "AVISO: Usando download já existente em ${CACHEDIR}/${DOWNLOADEDJAVA}."
