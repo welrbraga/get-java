@@ -88,24 +88,24 @@ fi
 
 #Faz o download e descompacta o pacote com a JRE selecionada
 function getjava() {
-    if [ ! -f "${DOWNLOADEDJAVA}" ]; then
-        echo "* Obtendo o Java a partir do site oficial. Aguarde..."
-		wget -q "${URL}" -O ${DOWNLOADEDJAVA}
+    if [ ! -f "${CACHEDIR}/${DOWNLOADEDJAVA}" ]; then
+	echo "* Obtendo o Java a partir do site oficial. Aguarde..."
+	wget -q "${URL}" -O "${CACHEDIR}/${DOWNLOADEDJAVA}"
     else
-        echo "AVISO: Usando download já existente em ${PATHJAVA}/${DOWNLOADEDJAVA}."
+        echo "AVISO: Usando download já existente em ${CACHEDIR}/${DOWNLOADEDJAVA}."
         echo "Caso seja necessario baixar outro arquivo exclua este arquivo manualmente"
 	echo "com o comando abaixo:"
 	echo
-	echo "  $ sudo rm ${PATHJAVA}/${DOWNLOADEDJAVA}"
+	echo "  $ sudo rm ${CACHEDIR}/${DOWNLOADEDJAVA}"
         echo
     fi
 
     echo "* Descompactando o pacote Java"
     if [ "${VERSION:0:2}" == "6u" ]; then
-		chmod +x ${DOWNLOADEDJAVA}
-        ./${DOWNLOADEDJAVA}
+	chmod +x "${CACHEDIR}/${DOWNLOADEDJAVA}"
+	"${CACHEDIR}/${DOWNLOADEDJAVA}"
     else
-        tar xzf ${DOWNLOADEDJAVA}
+	tar xzf "${CACHEDIR}/${DOWNLOADEDJAVA}"
     fi
 }
 
@@ -114,9 +114,9 @@ function makealternatives() {
 
     echo "* Configurando alternativas do sistema padrão"
     if [ "${VERSION:0:2}" == "6u" ]; then
-        export `head -n 161 ${DOWNLOADEDJAVA}|grep "javahome="`
+        export `head -n 161 ${CACHEDIR}/${DOWNLOADEDJAVA}|grep "javahome="`
     else
-        javahome=$(dirname `tar tf ${DOWNLOADEDJAVA}|grep release`)
+        javahome=$(dirname `tar tf ${CACHEDIR}/${DOWNLOADEDJAVA}|grep release`)
         export javahome
     fi
     
