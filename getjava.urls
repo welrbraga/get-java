@@ -1,9 +1,20 @@
-#Arquivo com URLs das JRE que disponíveis para instalação via script get-java
-#Formato RELEASE|URL64BITS|URL32BITS
+#Get-Java é um script para download e instalação automáticos da última versão
+#da Oracle JRE para Linux Debian e Ubuntu.
+#
+#Este é o arquivo com URLs das JRE que disponíveis para instalação via script
+#Para download do script completo visite o seção de "Ferramentas" em  meu 
+#blog (http://blog.welrbraga.eti.br) ou vá direto ao repositório no GitHub
+#em https://github.com/welrbraga/get-java
+#
 #Linhas com '#' são ignoradas e a primeira linha válida é sempre um código de
 #compatibilidade com o script instalado na máquina do cliente
-A|A|A
 #
+#URLS obtidas em http://www.java.com/pt_BR/download/manual.jsp
+#
+#FORMATO|DATA|ULTIMAJRE
+B|2015-02-12|7u75
+#
+#RELEASE|URL64BITS|URL32BITS
 6u30|http://javadl.sun.com/webapps/download/AutoDL?BundleId=58119|http://javadl.sun.com/webapps/download/AutoDL?BundleId=58117
 6u31|http://javadl.sun.com/webapps/download/AutoDL?BundleId=59623|http://javadl.sun.com/webapps/download/AutoDL?BundleId=59621
 6u34|http://javadl.sun.com/webapps/download/AutoDL?BundleId=66975|http://javadl.sun.com/webapps/download/AutoDL?BundleId=66973
