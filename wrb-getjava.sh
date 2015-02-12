@@ -9,15 +9,16 @@
 #URLS obtidas em http://www.java.com/pt_BR/download/manual.jsp
 
 
+#Lista todos os releases de JRE disponíveis para download
+function list_releases() {
+grep -Ev '^#|^$' getjava.urls| cut -d'|' -f 1
+}
+
 #Le o arquivo de URLs disponíveis e verifica a URL da JRE desejada
 #Recebe dois parâmetros o "formato do arquivo" e a versão desejada do JRE
 # (Obs: A versão é opcional e caso não seja passada considera a última
 #versão disponível
 function set_release() {
-	URLCACHE="https://raw.githubusercontent.com/welrbraga/get-java/master/getjava.urls"
-	CACHEDIR="/var/cache/getjava"
-	URLFILE="getjava.urls"
-
 	#Cria o diretório de cache caso não exista
 	if [ ! -d "${CACHEDIR}" ]
 	then
@@ -171,6 +172,9 @@ function makealternatives() {
 # INICIO DO SCRIPT
 ###############################################################################
 
+URLCACHE="https://raw.githubusercontent.com/welrbraga/get-java/master/getjava.urls"
+CACHEDIR="/var/cache/getjava"
+URLFILE="getjava.urls"
 
 if [ "$UID" != "0" ]; then
 	echo "Você precisa ser administrador para conseguir instalar a máquina Java em seu sistema"
