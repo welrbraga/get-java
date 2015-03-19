@@ -24,7 +24,7 @@ COMO INSTALAR
 Há três formas de instalar. Você pode escolher a que achar melhor sem que isso 
 prejudique o funcionamento script e a instalação da JRE em seu sistema.
 
-Primeira forma (baixando um só arquivo):
+Primeira forma (baixando um só arquivo - MAIS RÁPIDO):
 - Clique no arquivo "wrb-getjava.sh", com o botão direito do mouse;
 - Escolha a opção "Salvar link como"
 - Clique no botão "Salvar"
@@ -32,7 +32,10 @@ Primeira forma (baixando um só arquivo):
 arquivo foi salvo (geralmente na pasta "Downloads");
 - Siga o procedimento descrito na seção "COMO USAR".
 
-Segunda forma (baixando todo o último release):
+Obs: Desta forma não será possível instalar o script em seu sistema então
+ele sempre deverá ser executado a partir do local onde foi baixado.
+
+Segunda forma (baixando todo o último release - RECOMENDÁVEL):
 - Clique no link "releases", no alto da página;
 - Abaixo da lista de releases haverá um link para download de cada release 
 disponível, em formato "zip" e em formato "tar.gz". Clique no link que você 
@@ -43,7 +46,7 @@ unzip e tar pelo terminal);
 - Entre na pasta "get-java-XXXX" usando o comando "cd", a linha de comandos;
 - Siga o procedimento descrito na seção "COMO USAR".
 
-Terceira forma (mantenha-se atualizado com o git):
+Terceira forma (mantenha-se atualizado com o git - AJUDE A MELHORAR O SCRIPT):
 - Caso o seu sistema ainda não tenha o git instalado, instale-o com o comando 
 "sudo apt-get install git";
 - Com o "git" instalado em seu sistema você deverá clonar o repositório no 
@@ -79,6 +82,8 @@ O script será instalado em uma pasta de binários do sistema (/usr/local/bin)
 e poderá ser executado outras vezes mesmo que você remova o pacote baixado,
 seus arquivos ou o diretório clonado.
 
+Durante a instalação o script será executado e a última versão disponível
+da JRE já será baixada e instalada em seu sistema. 
 
 Nota sobre o download dos pacotes JRE
 -------------------------------------
