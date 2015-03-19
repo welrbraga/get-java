@@ -80,22 +80,42 @@ e poderá ser executado outras vezes mesmo que você remova o pacote baixado,
 seus arquivos ou o diretório clonado.
 
 
-Observações
------------
+Nota sobre o download dos pacotes JRE
+-------------------------------------
 
 Caso a "VERSÃO" da JRE não seja especificada na linha de comandos será 
-baixada/instalada a última versão que o script tiver conhecimento. A "VERSÃO"
-a ser informada deve seguir o formato "7u45", "6u20" etc.
+baixada/instalada a última versão que o script tiver conhecimento. 
 
-Só é possível baixar/instalar as versões para quais o script tenha as URLs.
-Por hora, não é possível listar as versões disponíveis. 
+Caso queira baixar e instalar uma versão que não a última, a "VERSÃO" 
+de ser informada no formato "7u45", "6u20" etc. Mas só é possível 
+baixar/instalar as versões para quais o script tenha as URLs. 
+
+OBS: Por hora, não é possível listar as versões disponíveis. 
 
 Caso o pacote Java já tenha sido baixado antes e você execute o script pela 
-segunda vez o pacote não será baixado novamente. Caso ele tenha vindo 
-corrompido da vez anterior e você precise executar a instalação novamente 
-você deverá removê-lo manualmente antes de executar o script outra vez (Como 
-já dito o pacote é baixado em /opt/java-$ARCH).
+segunda vez o pacote não será baixado novamente. No entanto os links para
+as alternativas do sistema serão recriadas se necessário.
 
+Caso o pacote tenha vindo corrompido da vez anterior e você precise 
+executar o download e a instalação novamente você deverá primeiro
+remover manualmente o arquivo danificado, antes de executar o script 
+outra vez.
+
+Mais um detalhe sobre o download: Onde eles são salvos
+------------------------------------------------------
+
+Versões anteriores do Get-Java baixava o pacote dentro de /opt/java-$ARCH.
+As versões mais recentes (a partir do commit 0c20d6c8d8 - release 8u40)
+passaram a salvar os pacotes em /var/cache/getjava. Pacotes baixados por
+versões antigas do script não são movidos para o novo path e podem ser 
+feitas manualmente pelo usuário se desejado.
+
+A partir desta versão citada acima a lista de pacotes que podem ser 
+obtidos deixaram de residir no script e passaram a ficar em um arquivo 
+volátil que será baixado, também em /var/cache/getjava, todas as vezes
+que o script for executado. Isso garante que todas as vezes que a lista 
+for atualizada no repositório você poderá obter a versão mais recente do
+Oracle JRE sem necessidade de atualizar o script.
 
 Sobre o Google Chrome
 ---------------------
