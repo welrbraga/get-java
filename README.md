@@ -39,7 +39,7 @@ disponível, em formato "zip" e em formato "tar.gz". Clique no link que você
 achar mais adequado para baixar o arquivo;
 - Descompacte o arquivo baixado usando a ferramenta ou comando adequado para o 
 formato escolhido (pode usar usando o seu gerenciador de arquivos ou comandos 
-unizip e tar pelo terminal);
+unzip e tar pelo terminal);
 - Entre na pasta "get-java-XXXX" usando o comando "cd", a linha de comandos;
 - Siga o procedimento descrito na seção "COMO USAR".
 
@@ -61,6 +61,24 @@ Após baixar o arquivo digite:
 $ sudo chmod +x wrb-getjava.sh
 
 $ sudo ./wrb-getjava.sh [VERSÃO]
+
+
+Instale e mantenha-se atualizado
+--------------------------------
+
+Você poderá instalar o script no seu sistema para que ele possa ser executado
+outras vezes de forma a assegurar que você estará sempre com a última versão
+do Oracle JRE instalado em sua máquina.
+
+Para executar a instalação, após baixar o último release ou ter clonado o 
+repositório Git, execute o comando abaixo:
+
+$ sudo ./INSTALL.sh
+
+O script será instalado em uma pasta de binários do sistema (/usr/local/bin)
+e poderá ser executado outras vezes mesmo que você remova o pacote baixado,
+seus arquivos ou o diretório clonado.
+
 
 Observações
 -----------
