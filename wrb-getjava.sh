@@ -3,12 +3,6 @@
 #Download do Java oficial da Oracle - para instalação no Debian/Ubuntu
 #Welington Braga - www.welrbraga.eti.br
 
-#WBRAGA - 2011-12-30
-#WBRAGA - 2012-04-17 - Não executa se o usuário não for o root
-
-#URLS obtidas em http://www.java.com/pt_BR/download/manual.jsp
-
-
 #Lista todos os releases de JRE disponíveis para download
 function list_releases() {
     echo "Os seguintes releases do JRE estão disponíveis para download"
