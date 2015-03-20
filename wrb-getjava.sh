@@ -11,8 +11,8 @@
 
 #Lista todos os releases de JRE disponíveis para download
 function list_releases() {
-	echo "Os seguintes releases do JRE estão disponíveis para download"
-	grep -Ev '^#|^$' "${CACHEDIR}/${URLFILE}"| cut -d'|' -f 1
+    echo "Os seguintes releases do JRE estão disponíveis para download"
+    grep -Ev '^#|^$' "${CACHEDIR}/${URLFILE}"| cut -d'|' -f 1
 }
 
 #Le o arquivo de URLs disponíveis e verifica a URL da JRE desejada
@@ -20,92 +20,95 @@ function list_releases() {
 # (Obs: A versão é opcional e caso não seja passada considera a última
 #versão disponível
 function set_release() {
-	#Cria o diretório de cache caso não exista
-	if [ ! -d "${CACHEDIR}" ]
-	then
-		mkdir -p "${CACHEDIR}"
-	fi
+    #Cria o diretório de cache caso não exista
+    if [ ! -d "${CACHEDIR}" ]
+    then
+        mkdir -p "${CACHEDIR}"
+    fi
 
-	echo "* Baixando novo arquivo de URLs disponíveis..."
-	wget -q "${URLCACHE}" -O "${CACHEDIR}/${URLFILE}"
+    echo "* Baixando novo arquivo de URLs disponíveis..."
+    wget -q "${URLCACHE}" -O "${CACHEDIR}/${URLFILE}"
 
-	FORMATFILE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 1`
-	LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
-	VALIDFORMAT="$1"
-	JRERELEASE="$2"
+    FORMATFILE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 1`
+    LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
+    VALIDFORMAT="$1"
+    JRERELEASE="$2"
 
-	#Se não especificou a RELEASE a ser isntalada usa a última disponível
-	if [ "${JRERELEASE}" == "" ]
-	then
-		JRERELEASE="${LASTJRE}"
-	fi
+    #Se não especificou a RELEASE a ser isntalada usa a última disponível
+    if [ "${JRERELEASE}" == "" ]
+    then
+        JRERELEASE="${LASTJRE}"
+    fi
 
-	if [ ! "${FORMATFILE}" == "${VALIDFORMAT}" ]
-	then
-		echo
-		echo "ERRO: A Versão do arquivo de URLs disponível não é compatível com a versão do script que você está usando."
-		echo "Faça o download da nova versão do script a partir do Github em https://github.com/welrbraga/get-java"
-		echo
-		echo "Abortando!"
-		exit
-	else
-		echo "Arquivo URLs versão ${FORMATFILE} aceito"
-		echo
-		VERSION=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 1`
-		URL64=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 2`
-		URL32=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 3`
-	fi
+    if [ ! "${FORMATFILE}" == "${VALIDFORMAT}" ]
+    then
+        echo
+        echo "ERRO: A Versão do arquivo de URLs disponível não é compatível com a versão do script que você está usando."
+        echo "Faça o download da nova versão do script a partir do Github em https://github.com/welrbraga/get-java"
+        echo
+        echo "Abortando!"
+        exit
+    else
+        echo "Arquivo URLs versão ${FORMATFILE} aceito"
+        echo
+        VERSION=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 1`
+        URL64=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 2`
+        URL32=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 3`
+    fi
 
-	if [ "${VERSION}" == "" ]
-	then
-		echo "ERRO: O Release ${JRERELEASE} do JRE não está disponível.
+    if [ "${VERSION}" == "" ]
+    then
+        echo "ERRO: O Release ${JRERELEASE} do JRE não está disponível.
 Certifique-se de informar uma versão válida e que esteja disponível para download"
-		echo
-		list_releases
-		echo
-		echo "Abortando!"
-		exit
-	fi
+        echo
+        list_releases
+        echo
+        echo "Abortando!"
+        exit
+    fi
 }
 
 #Verifica qual é  arquitetura do sistema para baixar a JRE adequada a ela
 function set_arch() {
-ARCH=`uname -m`
-if [ "${ARCH}" == "x86_64" ]; then
-    echo -n "* Selecionada versão 64bits"
-    URL=${URL64}
-    ARCHPLUGIN="amd64"
-# desde  a versao 12.04 o ubuntu usa o arquivo libnpjp2.so como plugin
-    FILEPLUGIN="lib/${ARCHPLUGIN}/libnpjp2.so"
-    echo ""
-else
-    echo "* Selecionada versão 32bits"
-    URL=${URL32}
-    ARCHPLUGIN="i386"
-    FILEPLUGIN="lib/${ARCHPLUGIN}/libnpjp2.so"
-fi
+    ARCH=`uname -m`
+    if [ "${ARCH}" == "x86_64" ]
+    then
+        echo -n "* Selecionada versão 64bits"
+        URL=${URL64}
+        ARCHPLUGIN="amd64"
+        # desde  a versao 12.04 o ubuntu usa o arquivo libnpjp2.so como plugin
+        FILEPLUGIN="lib/${ARCHPLUGIN}/libnpjp2.so"
+        echo ""
+    else
+        echo "* Selecionada versão 32bits"
+        URL=${URL32}
+        ARCHPLUGIN="i386"
+        FILEPLUGIN="lib/${ARCHPLUGIN}/libnpjp2.so"
+    fi
 }
 
 #Faz o download e descompacta o pacote com a JRE selecionada
 function getjava() {
-    if [ ! -f "${CACHEDIR}/${DOWNLOADEDJAVA}" ]; then
-	echo "* Obtendo o Java ${JRERELEASE} a partir do site oficial. Aguarde..."
-	wget -q "${URL}" -O "${CACHEDIR}/${DOWNLOADEDJAVA}"
+    if [ ! -f "${CACHEDIR}/${DOWNLOADEDJAVA}" ]
+    then
+        echo "* Obtendo o Java ${JRERELEASE} a partir do site oficial. Aguarde..."
+        wget -q "${URL}" -O "${CACHEDIR}/${DOWNLOADEDJAVA}"
     else
         echo "AVISO: Usando download já existente em ${CACHEDIR}/${DOWNLOADEDJAVA}."
         echo "Caso seja necessario baixar outro arquivo exclua este arquivo manualmente"
-	echo "com o comando abaixo:"
-	echo
-	echo "  $ sudo rm ${CACHEDIR}/${DOWNLOADEDJAVA}"
+        echo "com o comando abaixo:"
+        echo
+        echo "  $ sudo rm ${CACHEDIR}/${DOWNLOADEDJAVA}"
         echo
     fi
 
     echo "* Descompactando o pacote Java"
-    if [ "${VERSION:0:2}" == "6u" ]; then
-	chmod +x "${CACHEDIR}/${DOWNLOADEDJAVA}"
-	"${CACHEDIR}/${DOWNLOADEDJAVA}"
+    if [ "${VERSION:0:2}" == "6u" ]
+    then
+        chmod +x "${CACHEDIR}/${DOWNLOADEDJAVA}"
+        "${CACHEDIR}/${DOWNLOADEDJAVA}"
     else
-	tar xzf "${CACHEDIR}/${DOWNLOADEDJAVA}"
+        tar xzf "${CACHEDIR}/${DOWNLOADEDJAVA}"
     fi
 }
 
@@ -113,7 +116,8 @@ function getjava() {
 function makealternatives() {
 
     echo "* Configurando alternativas do sistema padrão"
-    if [ "${VERSION:0:2}" == "6u" ]; then
+    if [ "${VERSION:0:2}" == "6u" ]
+    then
         export `head -n 161 ${CACHEDIR}/${DOWNLOADEDJAVA}|grep "javahome="`
     else
         javahome=$(dirname `tar tf ${CACHEDIR}/${DOWNLOADEDJAVA}|grep release`)
@@ -123,7 +127,7 @@ function makealternatives() {
     PLUGIN="${PATHJAVA}/${javahome}/${FILEPLUGIN}"
 
     update-alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so mozilla-javaplugin.so ${PLUGIN} 1000
-	update-alternatives --set mozilla-javaplugin.so ${PLUGIN}
+    update-alternatives --set mozilla-javaplugin.so ${PLUGIN}
  
     update-alternatives --install /usr/lib/firefox-addons/plugins/libjavaplugin.so firefox-javaplugin.so ${PLUGIN} 1000
     update-alternatives --set firefox-javaplugin.so ${PLUGIN}
@@ -179,17 +183,19 @@ URLCACHE="https://raw.githubusercontent.com/welrbraga/get-java/master/getjava.ur
 CACHEDIR="/var/cache/getjava"
 URLFILE="getjava.urls"
 
-if [ "$UID" != "0" ]; then
-	echo "ERRO: Você precisa ser administrador para conseguir instalar a máquina Java em seu sistema"
-	echo "Tente novamente com: sudo $0"
-	exit
+if [ "$UID" != "0" ]
+then
+    echo "ERRO: Você precisa ser administrador para conseguir instalar a máquina Java em seu sistema"
+    echo "Tente novamente com: sudo $0"
+    exit
 fi
 
 #Baixa a última versao da JRE ou a versão solicitada
-if [ "$1" == "" ]; then
-	JRE=${LASTJRE}
+if [ "$1" == "" ]
+then
+    JRE=${LASTJRE}
 else
-	JRE=$1
+    JRE=$1
 fi
 
 set_release "B" ${JRE}
@@ -203,7 +209,8 @@ cd "${PATHJAVA}"
 
 
 #Arquivo binário baixado do site do Java
-if [ "${VERSION:0:2}" == "6u" ]; then
+if [ "${VERSION:0:2}" == "6u" ]
+then
     DOWNLOADEDJAVA="java-${ARCHPLUGIN}-${VERSION}.bin"
 else
     DOWNLOADEDJAVA="java-${ARCHPLUGIN}-${VERSION}.tar.gz"
