@@ -216,6 +216,7 @@ do
   case $OPT in
     "h") #Chama a ajuda e sai
       show_help
+      echo
       exit 1
       ;;
     "i") #Instalação do JRE com a versão especificada - se existir na lista
@@ -244,10 +245,19 @@ do
       echo "A opção -$OPTARG requer que seja informada a versão da JRE a ser instalada. Use a flag '-l' para listar todas as versões do JRE disponíveis"
       echo
       show_help
-      exit 3
+      exit 4
       ;;
   esac
 done
+
+#Caso anenhum parâmetro seja informado exibe a ajuda e sai
+if [ "${OPTIND}" == "1" ]
+then
+  echo
+  show_help
+  echo
+  exit 5
+fi
 
 set_release "B" ${JRE}
 
