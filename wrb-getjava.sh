@@ -222,8 +222,7 @@ do
       JRE=${OPTARG}
       ;;
     "n") #Instalação da última versão da JRE disponível na tabela de urls
-      #Na verdade existe um bug aqui. A variavel LASTJRE so existe apos a
-      #função set_release ser invocada
+      LASTJRE=$(list_releases|tail -n 1)
       JRE=${LASTJRE}
       ;;
     "l")
@@ -234,12 +233,14 @@ do
       exit 2
       ;;
     "?")
+      echo
       echo "A opção -$OPTARG não é válida."
       echo
       show_help
       exit 3
       ;;
     ":")
+      echo
       echo "A opção -$OPTARG requer que seja informada a versão da JRE a ser instalada. Use a flag '-l' para listar todas as versões do JRE disponíveis"
       echo
       show_help
@@ -247,11 +248,6 @@ do
       ;;
   esac
 done
-
-echo 	"DEBUG"
-echo "Versão da JRE a ser baixada" $JRE
-exit 
-exit
 
 set_release "B" ${JRE}
 
