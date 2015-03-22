@@ -169,6 +169,28 @@ function makealternatives() {
 
 }
 
+function show_help() {
+cat <<EOF
+get-Java - Instala uma Oracle JRE no seu sistema
+
+Uso:
+ $0 [flag]
+
+As flags e parâmetros disponíveis para uso são:
+
+  -h - Mostra este texto explicativo de ajuda
+ 
+  -i - Instala uma das versões disponíveis informada pelo usuário (use a 
+       flag '-l' para listar as versões disponíveis)
+
+  -l - Lista todas as versões disponíveis e suportadas pelo script
+
+  -n - Instala a última versão do JRE disponível e suportada pelo script
+
+EOF
+
+}
+
 ###############################################################################
 # INICIO DO SCRIPT
 ###############################################################################
@@ -177,6 +199,7 @@ URLCACHE="https://raw.githubusercontent.com/welrbraga/get-java/master/getjava.ur
 CACHEDIR="/var/cache/getjava"
 URLFILE="getjava.urls"
 
+#So prossegue se estiver com privilégios administrativos (root)
 if [ "$UID" != "0" ]
 then
     echo "ERRO: Você precisa ser administrador para conseguir instalar a máquina Java em seu sistema"
@@ -184,13 +207,51 @@ then
     exit
 fi
 
-#Baixa a última versao da JRE ou a versão solicitada
-if [ "$1" == "" ]
-then
-    JRE=${LASTJRE}
-else
-    JRE=$1
-fi
+#Trata as opções de trabalho do script
+# -i - instala a versão especificada
+# -n - instala a última versão
+# -l - Lista todas as versões disponíveis para download e isntalação
+while getopts ":hi:nl" OPT "$@"
+do
+  case $OPT in
+    "h") #Chama a ajuda e sai
+      show_help
+      exit 1
+      ;;
+    "i") #Instalação do JRE com a versão especificada - se existir na lista
+      JRE=${OPTARG}
+      ;;
+    "n") #Instalação da última versão da JRE disponível na tabela de urls
+      #Na verdade existe um bug aqui. A variavel LASTJRE so existe apos a
+      #função set_release ser invocada
+      JRE=${LASTJRE}
+      ;;
+    "l")
+      echo "Os seguintes releases da Oracle JRE estão disponíveis para download e instalação"
+      echo
+      list_releases
+      echo
+      exit 2
+      ;;
+    "?")
+      echo "A opção -$OPTARG não é válida."
+      echo
+      show_help
+      exit 3
+      ;;
+    ":")
+      echo "A opção -$OPTARG requer que seja informada a versão da JRE a ser instalada. Use a flag '-l' para listar todas as versões do JRE disponíveis"
+      echo
+      show_help
+      exit 3
+      ;;
+  esac
+done
+
+echo 	"DEBUG"
+echo "Versão da JRE a ser baixada" $JRE
+exit 
+exit
 
 set_release "B" ${JRE}
 
