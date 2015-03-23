@@ -9,12 +9,13 @@ da Oracle JRE em seu sistema Linux Debian ou Ubuntu.
 COMO FUNCIONA
 -------------
 
-O script verifica a arquitetura do seu sistema (32bits ou 64bits), baixa e 
-instala a versão adequada da JRE em /opt/java-$ARCH.
+O script baixa e instala a versão adequada a arquitetura do seu sistema (32bits 
+ou 64bits).
 
 Após instalado o script se encarrega de criar todos os links necessários para
-que esta se torne a máquina Java padrão do seu sistema e possa ser utilizada 
-pelos navegadores web (testado apenas com Firefox e Google Chrome**).
+que JRE recém instalada se torne a padrão do seu sistema e possa ser utilizada 
+pelos navegadores web (testado apenas com Firefox e Google Chrome**) e demais
+ferramentas do sistema.
 
 ** Ver nota sobre o Gogole Chrome ainda neste README.
 
@@ -22,7 +23,7 @@ COMO INSTALAR
 -------------
 
 Há três formas de instalar. Você pode escolher a que achar melhor sem que isso 
-prejudique o funcionamento script e a instalação da JRE em seu sistema.
+prejudique o funcionamento do script ou a instalação da JRE em seu sistema.
 
 Primeira forma (baixando um só arquivo - MAIS RÁPIDO):
 - Clique no arquivo "wrb-getjava.sh", com o botão direito do mouse;
@@ -63,18 +64,27 @@ Após baixar o arquivo digite:
 
 $ sudo chmod +x wrb-getjava.sh
 
-$ sudo ./wrb-getjava.sh [VERSÃO]
+$ sudo ./wrb-getjava.sh [flag]
+
+
+As flas permitidas são:
+
+  -h - (Help) Mostra as opções disponíveis para uso
+ 
+  -i - (Install) Instala uma das versões disponíveis informada 
+       pelo usuário (use a flag '-l' para listar as versões disponíveis)
+
+  -l - (List) Lista todas as versões disponíveis e suportadas pelo script
+
+  -n - (New) Instala a versão mais recente do JRE disponível e suportada 
+       pelo script
 
 
 Instale e mantenha-se atualizado
 --------------------------------
 
-Você poderá instalar o script no seu sistema para que ele possa ser executado
-outras vezes de forma a assegurar que você estará sempre com a última versão
-do Oracle JRE instalado em sua máquina.
-
-Para executar a instalação, após baixar o último release ou ter clonado o 
-repositório Git, execute o comando abaixo:
+Para executar a instalação do script, após baixar o último release ou ter 
+clonado o repositório Git, execute o comando abaixo:
 
 $ sudo ./INSTALL.sh
 
@@ -88,14 +98,13 @@ da JRE já será baixada e instalada em seu sistema.
 Nota sobre o download dos pacotes JRE
 -------------------------------------
 
-Caso a "VERSÃO" da JRE não seja especificada na linha de comandos será 
-baixada/instalada a última versão que o script tiver conhecimento. 
-
 Caso queira baixar e instalar uma versão que não a última, a "VERSÃO" 
-de ser informada no formato "7u45", "6u20" etc. Mas só é possível 
-baixar/instalar as versões para quais o script tenha as URLs. 
+deve ser informada no formato "7u45", "6u20" etc (tal como mostrado na saída
+do flag '-l').
 
-OBS: Por hora, não é possível listar as versões disponíveis. 
+Veja que só é possível baixar/instalar as versões para quais o script tenha 
+as URLs. Caso a Oracle tenha lançado uma nova versão e eu não tenha atualizado
+a lista de URLs você continuará baixando sempre as versões anteriores do JRE.
 
 Caso o pacote Java já tenha sido baixado antes e você execute o script pela 
 segunda vez o pacote não será baixado novamente. No entanto os links para
@@ -131,7 +140,10 @@ Linux+Chrome ou você usa uma JVM 6 (não testei se é verdade), ou tenta usar u
 release do Google Chrome anterior ao 35, lançado em Abril/2014.
 
 Referências a este caso são:
+
 http://blog.chromium.org/2013/09/saying-goodbye-to-our-old-friend-npapi.html
+
 http://java.com/en/download/faq/chrome.xml
+
 http://www.java.com/pt_BR/download/faq/chrome.xml
 
