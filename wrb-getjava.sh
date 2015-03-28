@@ -172,6 +172,16 @@ function makealternatives() {
 
 }
 
+#Atualiza as páginas de manual das ferramentas
+function updatemanual() {
+  echo "* Atualizando páginas de manual"
+  ln -fs ${PATHJAVA}/${javahome}/man/man1 /usr/local/man/
+  ln -fs ${PATHJAVA}/${javahome}/man/ja /usr/local/man/
+  mandb -q
+
+}
+
+
 function show_help() {
 cat <<EOF
 get-Java - Instala uma Oracle JRE no seu sistema
@@ -284,6 +294,8 @@ fi
 getjava
 
 makealternatives
+
+updatemanual
 
 echo "Done"
 
