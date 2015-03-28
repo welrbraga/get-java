@@ -167,6 +167,9 @@ function makealternatives() {
     update-alternatives --install /usr/bin/jexec jexec ${PATHJAVA}/${javahome}/lib/jexec 1000
     update-alternatives --set jexec ${PATHJAVA}/${javahome}/lib/jexec
 
+    update-alternatives --install /usr/bin/jcontrol jcontrol ${PATHJAVA}/${javahome}/bin/jcontrol 1000
+    update-alternatives --set jcontrol ${PATHJAVA}/${javahome}/bin/jcontrol
+
 }
 
 function show_help() {
