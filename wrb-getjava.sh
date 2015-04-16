@@ -14,15 +14,6 @@ function list_releases() {
 # (Obs: A versão é opcional e caso não seja passada considera a última
 #versão disponível
 function set_release() {
-    #Cria o diretório de cache caso não exista
-    if [ ! -d "${CACHEDIR}" ]
-    then
-        mkdir -p "${CACHEDIR}"
-    fi
-
-    echo "* Baixando novo arquivo de URLs disponíveis..."
-    wget -q "${URLCACHE}" -O "${CACHEDIR}/${URLFILE}"
-
     FORMATFILE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 1`
     LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
     VALIDFORMAT="$1"
@@ -204,6 +195,22 @@ EOF
 
 }
 
+#Faz o download do arquivo com a lista de URLs válidas do JRE
+#Esta função deve ser invocada antes de qualquer outra que requeira
+#Obterm versões de JRE
+function gettable() {
+  
+    #Cria o diretório de cache caso não exista
+    if [ ! -d "${CACHEDIR}" ]
+    then
+        mkdir -p "${CACHEDIR}"
+    fi
+
+    echo "* Baixando novo arquivo de URLs disponíveis..."
+    wget -q "${URLCACHE}" -O "${CACHEDIR}/${URLFILE}"
+
+}
+
 ###############################################################################
 # INICIO DO SCRIPT
 ###############################################################################
@@ -219,6 +226,8 @@ then
     echo "Tente novamente com: sudo $0"
     exit
 fi
+
+gettable
 
 #Trata as opções de trabalho do script
 # -i - instala a versão especificada
