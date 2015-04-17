@@ -219,8 +219,6 @@ then
     exit
 fi
 
-gettable
-
 #Trata as opções de trabalho do script
 # -i - instala a versão especificada
 # -n - instala a última versão
@@ -234,15 +232,18 @@ do
       exit 1
       ;;
     "i") #Instalação do JRE com a versão especificada - se existir na lista
+      gettable
       JRE=${OPTARG}
       ;;
     "n") #Instalação da última versão da JRE disponível na tabela de urls
+      gettable
       LASTJRE=$(list_releases|tail -n 1)
       JRE=${LASTJRE}
       ;;
     "l")
       echo "Os seguintes releases da Oracle JRE estão disponíveis para download e instalação"
       echo
+      gettable
       list_releases
       echo
       exit 2
