@@ -65,7 +65,7 @@ function set_arch() {
 }
 
 #Faz o download e descompacta o pacote com a JRE selecionada
-function getjava() {
+function get_java() {
     if [ ! -f "${CACHEDIR}/${DOWNLOADEDJAVA}" ]
     then
         echo "* Obtendo o Java ${JRERELEASE} a partir do site oficial. Aguarde..."
@@ -90,7 +90,7 @@ function getjava() {
 }
 
 #Configura a JRE descompactada como default do sistema
-function makealternatives() {
+function make_alternatives() {
 
     echo "* Configurando alternativas do sistema padrão"
     if [ "${VERSION:0:2}" == "6u" ]
@@ -156,7 +156,7 @@ function makealternatives() {
 }
 
 #Atualiza as páginas de manual das ferramentas
-function updatemanual() {
+function update_manual() {
   echo "* Atualizando páginas de manual"
   ln -fs ${PATHJAVA}/${javahome}/man/man1 /usr/local/man/
   ln -fs ${PATHJAVA}/${javahome}/man/ja /usr/local/man/
@@ -190,7 +190,7 @@ EOF
 #Faz o download do arquivo com a lista de URLs válidas do JRE
 #Esta função deve ser invocada antes de qualquer outra que requeira
 #Obterm versões de JRE
-function gettable() {
+function get_table() {
   
     #Cria o diretório de cache caso não exista
     if [ ! -d "${CACHEDIR}" ]
@@ -232,18 +232,18 @@ do
       exit 1
       ;;
     "i") #Instalação do JRE com a versão especificada - se existir na lista
-      gettable
+      get_table
       JRE=${OPTARG}
       ;;
     "n") #Instalação da última versão da JRE disponível na tabela de urls
-      gettable
+      get_table
       LASTJRE=$(list_releases|tail -n 1)
       JRE=${LASTJRE}
       ;;
     "l")
       echo "Os seguintes releases da Oracle JRE estão disponíveis para download e instalação"
       echo
-      gettable
+      get_table
       list_releases
       echo
       exit 2
@@ -293,11 +293,11 @@ else
 fi
 #
 
-getjava
+get_java
 
-makealternatives
+make_alternatives
 
-updatemanual
+update_manual
 
 echo "Done"
 
