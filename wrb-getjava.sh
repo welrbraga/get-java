@@ -11,19 +11,11 @@ function list_releases() {
 
 #Le o arquivo de URLs disponíveis e verifica a URL da JRE desejada
 #Recebe dois parâmetros o "formato do arquivo" e a versão desejada do JRE
-# (Obs: A versão é opcional e caso não seja passada considera a última
-#versão disponível
 function set_release() {
     FORMATFILE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 1`
     LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
     VALIDFORMAT="$1"
     JRERELEASE="$2"
-
-    #Se não especificou a RELEASE a ser isntalada usa a última disponível
-    if [ "${JRERELEASE}" == "" ]
-    then
-        JRERELEASE="${LASTJRE}"
-    fi
 
     if [ ! "${FORMATFILE}" == "${VALIDFORMAT}" ]
     then
