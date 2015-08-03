@@ -17,7 +17,7 @@ que JRE recém instalada se torne a padrão do seu sistema e possa ser utilizada
 pelos navegadores web (testado apenas com Firefox e Google Chrome**) e demais
 ferramentas do sistema.
 
-** Ver nota sobre o Gogole Chrome ainda neste README.
+** Ver nota sobre o Google Chrome ainda neste README.
 
 COMO INSTALAR
 -------------
