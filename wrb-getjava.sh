@@ -295,6 +295,8 @@ fi
 
 get_java
 
+chown -R root:root "${PATHJAVA}"
+
 make_alternatives
 
 update_manual
