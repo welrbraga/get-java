@@ -123,110 +123,20 @@ function make_alternatives() {
     update-alternatives --install ${LINK} ${NAME} ${PLUGIN} ${PRIORITY}
     update-alternatives --set ${NAME} ${PLUGIN}
 
-    #
-    #Useless... we are useless... but we are here
-    NAME="java"
-    LINK="/usr/bin/java"
-    TARGET="${PATHJAVA}/${javahome}/bin/java"
+    #Faz um loop sobre todo o conteúdo do diretório "bin" facilitando a
+    #criação dos alternatives
+    for file in `ls "${PATHJAVA}/${javahome}/bin"`;
+    do
+	echo "  -" $file 
 
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
+	NAME=${file}
+	LINK=/usr/bin/${file}
+	TARGET=${PATHJAVA}/${javahome}/bin/${file}
 
-    NAME="javaws"
-    LINK="/usr/bin/javaws"
-    TARGET="${PATHJAVA}/${javahome}/bin/javaws"
+	update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+	update-alternatives --set ${NAME} ${TARGET}
 
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
-
-    NAME="keytool"
-    LINK="/usr/bin/keytool"
-    TARGET="${PATHJAVA}/${javahome}/bin/keytool"
-
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
-
-    NAME="orbd"
-    LINK="/usr/bin/orbd"
-    TARGET="${PATHJAVA}/${javahome}/bin/orbd"
-
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
-
-    NAME="pack200"
-    LINK="/usr/bin/pack200"
-    TARGET="${PATHJAVA}/${javahome}/bin/pack200"
-
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
-
-    NAME="policytool"
-    LINK="/usr/bin/policytool"
-    TARGET="${PATHJAVA}/${javahome}/bin/policytool"
-
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
-
-    NAME="rmid"
-    LINK="/usr/bin/rmid"
-    TARGET="${PATHJAVA}/${javahome}/bin/rmid"
-
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
-
-    NAME="rmiregistry"
-    LINK="/usr/bin/rmiregistry"
-    TARGET="${PATHJAVA}/${javahome}/bin/rmiregistry"
-
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
-
-    NAME="servertool"
-    LINK="/usr/bin/servertool"
-    TARGET="${PATHJAVA}/${javahome}/bin/servertool"
-
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
-
-    NAME="tnameserv"
-    LINK="/usr/bin/tnameserv"
-    TARGET="${PATHJAVA}/${javahome}/bin/tnameserv"
-
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
-
-    NAME="unpack200"
-    LINK="/usr/bin/unpack200"
-    TARGET="${PATHJAVA}/${javahome}/bin/unpack200"
-
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
-
-    #O Java 8 não tem JEXEC, mas tem JJS - não sei se são equivalentes
-    if [ "${VERSION:0:2}" == "8u" ]
-    then
-        NAME="jjs"
-        LINK="/usr/bin/jjs"
-        TARGET="${PATHJAVA}/${javahome}/bin/jjs"
-
-        update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-        update-alternatives --set ${NAME} ${TARGET}
-    else
-        NAME="jexec"
-        LINK="/usr/bin/jexec"
-        TARGET="${PATHJAVA}/${javahome}/bin/jexec"
-
-        update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-        update-alternatives --set ${NAME} ${TARGET}
-    fi
-
-    NAME="jcontrol"
-    LINK="/usr/bin/jcontrol"
-    TARGET="${PATHJAVA}/${javahome}/bin/jcontrol"
-
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
-
+    done
 }
 
 #Atualiza as páginas de manual das ferramentas
