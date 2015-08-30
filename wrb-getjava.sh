@@ -202,12 +202,23 @@ function make_alternatives() {
     update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
     update-alternatives --set ${NAME} ${TARGET}
 
-    NAME="jexec"
-    LINK="/usr/bin/jexec"
-    TARGET="${PATHJAVA}/${javahome}/bin/jexec"
+    #O Java 8 não tem JEXEC, mas tem JJS - não sei se são equivalentes
+    if [ "${VERSION:0:2}" == "8u" ]
+    then
+        NAME="jjs"
+        LINK="/usr/bin/jjs"
+        TARGET="${PATHJAVA}/${javahome}/bin/jjs"
 
-    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
-    update-alternatives --set ${NAME} ${TARGET}
+        update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+        update-alternatives --set ${NAME} ${TARGET}
+    else
+        NAME="jexec"
+        LINK="/usr/bin/jexec"
+        TARGET="${PATHJAVA}/${javahome}/bin/jexec"
+
+        update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+        update-alternatives --set ${NAME} ${TARGET}
+    fi
 
     NAME="jcontrol"
     LINK="/usr/bin/jcontrol"
