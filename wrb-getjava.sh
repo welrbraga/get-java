@@ -100,58 +100,121 @@ function make_alternatives() {
         javahome=$(dirname `tar tf ${CACHEDIR}/${DOWNLOADEDJAVA}|grep release`)
         export javahome
     fi
-    
+
+    PRIORITY=$1
+
     PLUGIN="${PATHJAVA}/${javahome}/${FILEPLUGIN}"
 
-    update-alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so mozilla-javaplugin.so ${PLUGIN} 1000
-    update-alternatives --set mozilla-javaplugin.so ${PLUGIN}
- 
-    update-alternatives --install /usr/lib/firefox-addons/plugins/libjavaplugin.so firefox-javaplugin.so ${PLUGIN} 1000
-    update-alternatives --set firefox-javaplugin.so ${PLUGIN}
+    NAME="mozilla-javaplugin.so"
+    LINK="/usr/lib/mozilla/plugins/libjavaplugin.so"
 
-    update-alternatives --install /usr/lib/xulrunner/plugins/libjavaplugin.so xulrunner-javaplugin.so ${PLUGIN} 1000
-    update-alternatives --set xulrunner-javaplugin.so ${PLUGIN}
+    update-alternatives --install ${LINK} ${NAME} ${PLUGIN} ${PRIORITY}
+    update-alternatives --set ${NAME} ${PLUGIN}
+
+    NAME="firefox-javaplugin.so"
+    LINK="/usr/lib/firefox-addons/plugins/libjavaplugin.so"
+
+    update-alternatives --install ${LINK} ${NAME} ${PLUGIN} ${PRIORITY}
+    update-alternatives --set ${NAME} ${PLUGIN}
+
+    NAME="xulrunner-javaplugin.so"
+    LINK="/usr/lib/xulrunner/plugins/libjavaplugin.so"
+
+    update-alternatives --install ${LINK} ${NAME} ${PLUGIN} ${PRIORITY}
+    update-alternatives --set ${NAME} ${PLUGIN}
 
     #
     #Useless... we are useless... but we are here
-    update-alternatives --install /usr/bin/java java ${PATHJAVA}/${javahome}/bin/java 1000
-    update-alternatives --set java ${PATHJAVA}/${javahome}/bin/java
+    NAME="java"
+    LINK="/usr/bin/java"
+    TARGET="${PATHJAVA}/${javahome}/bin/java"
 
-    update-alternatives --install /usr/bin/javaws javaws ${PATHJAVA}/${javahome}/bin/javaws 1000
-    update-alternatives --set javaws ${PATHJAVA}/${javahome}/bin/javaws
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
 
-    update-alternatives --install /usr/bin/keytool keytool ${PATHJAVA}/${javahome}/bin/keytool 1000
-    update-alternatives --set keytool ${PATHJAVA}/${javahome}/bin/keytool
+    NAME="javaws"
+    LINK="/usr/bin/javaws"
+    TARGET="${PATHJAVA}/${javahome}/bin/javaws"
 
-    update-alternatives --install /usr/bin/orbd orbd ${PATHJAVA}/${javahome}/bin/orbd 1000
-    update-alternatives --set orbd ${PATHJAVA}/${javahome}/bin/orbd
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
 
-    update-alternatives --install /usr/bin/pack200 pack200 ${PATHJAVA}/${javahome}/bin/pack200 1000
-    update-alternatives --set pack200 ${PATHJAVA}/${javahome}/bin/pack200
+    NAME="keytool"
+    LINK="/usr/bin/keytool"
+    TARGET="${PATHJAVA}/${javahome}/bin/keytool"
 
-    update-alternatives --install /usr/bin/policytool policytool ${PATHJAVA}/${javahome}/bin/policytool 1000
-    update-alternatives --set policytool ${PATHJAVA}/${javahome}/bin/policytool
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
 
-    update-alternatives --install /usr/bin/rmid rmid ${PATHJAVA}/${javahome}/bin/rmid 1000
-    update-alternatives --set rmid ${PATHJAVA}/${javahome}/bin/rmid
+    NAME="orbd"
+    LINK="/usr/bin/orbd"
+    TARGET="${PATHJAVA}/${javahome}/bin/orbd"
 
-    update-alternatives --install /usr/bin/rmiregistry rmiregistry ${PATHJAVA}/${javahome}/bin/rmiregistry 1000
-    update-alternatives --set rmiregistry ${PATHJAVA}/${javahome}/bin/rmiregistry
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
 
-    update-alternatives --install /usr/bin/servertool servertool ${PATHJAVA}/${javahome}/bin/servertool 1000
-    update-alternatives --set servertool ${PATHJAVA}/${javahome}/bin/servertool
+    NAME="pack200"
+    LINK="/usr/bin/pack200"
+    TARGET="${PATHJAVA}/${javahome}/bin/pack200"
 
-    update-alternatives --install /usr/bin/tnameserv tnameserv ${PATHJAVA}/${javahome}/bin/tnameserv 1000
-    update-alternatives --set tnameserv ${PATHJAVA}/${javahome}/bin/tnameserv
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
 
-    update-alternatives --install /usr/bin/unpack200 unpack200 ${PATHJAVA}/${javahome}/bin/unpack200 1000
-    update-alternatives --set unpack200 ${PATHJAVA}/${javahome}/bin/unpack200
+    NAME="policytool"
+    LINK="/usr/bin/policytool"
+    TARGET="${PATHJAVA}/${javahome}/bin/policytool"
 
-    update-alternatives --install /usr/bin/jexec jexec ${PATHJAVA}/${javahome}/lib/jexec 1000
-    update-alternatives --set jexec ${PATHJAVA}/${javahome}/lib/jexec
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
 
-    update-alternatives --install /usr/bin/jcontrol jcontrol ${PATHJAVA}/${javahome}/bin/jcontrol 1000
-    update-alternatives --set jcontrol ${PATHJAVA}/${javahome}/bin/jcontrol
+    NAME="rmid"
+    LINK="/usr/bin/rmid"
+    TARGET="${PATHJAVA}/${javahome}/bin/rmid"
+
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
+
+    NAME="rmiregistry"
+    LINK="/usr/bin/rmiregistry"
+    TARGET="${PATHJAVA}/${javahome}/bin/rmiregistry"
+
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
+
+    NAME="servertool"
+    LINK="/usr/bin/servertool"
+    TARGET="${PATHJAVA}/${javahome}/bin/servertool"
+
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
+
+    NAME="tnameserv"
+    LINK="/usr/bin/tnameserv"
+    TARGET="${PATHJAVA}/${javahome}/bin/tnameserv"
+
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
+
+    NAME="unpack200"
+    LINK="/usr/bin/unpack200"
+    TARGET="${PATHJAVA}/${javahome}/bin/unpack200"
+
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
+
+    NAME="jexec"
+    LINK="/usr/bin/jexec"
+    TARGET="${PATHJAVA}/${javahome}/bin/jexec"
+
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
+
+    NAME="jcontrol"
+    LINK="/usr/bin/jcontrol"
+    TARGET="${PATHJAVA}/${javahome}/bin/jcontrol"
+
+    update-alternatives --install ${LINK} ${NAME} ${TARGET} ${PRIORITY}
+    update-alternatives --set ${NAME} ${TARGET}
 
 }
 
@@ -297,7 +360,7 @@ get_java
 
 chown -R root:root "${PATHJAVA}"
 
-make_alternatives
+make_alternatives 1000
 
 update_manual
 
