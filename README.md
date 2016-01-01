@@ -31,10 +31,12 @@ Primeira forma (baixando um só arquivo - MAIS RÁPIDO):
 - Clique no botão "Salvar"
 - Pela janela de terminal use o comando "cd" para entrar no diretório onde o 
 arquivo foi salvo (geralmente na pasta "Downloads");
-- Siga o procedimento descrito na seção "COMO USAR".
+- Mova o arquivo para alguma pasta em seu PATH e dê permissão de execução. eg:
 
-Obs: Desta forma não será possível instalar o script em seu sistema então
-ele sempre deverá ser executado a partir do local onde foi baixado.
+  $ sudo mv wrb-getjava.sh /usr/local/bin
+  $ sudo chmod a+x /usr/local/bin
+
+- Siga o procedimento descrito na seção "COMO USAR".
 
 Segunda forma (baixando todo o último release - RECOMENDÁVEL):
 - Clique no link "releases", no alto da página;
@@ -42,29 +44,52 @@ Segunda forma (baixando todo o último release - RECOMENDÁVEL):
 disponível, em formato "zip" e em formato "tar.gz". Clique no link que você 
 achar mais adequado para baixar o arquivo;
 - Descompacte o arquivo baixado usando a ferramenta ou comando adequado para o 
-formato escolhido (pode usar usando o seu gerenciador de arquivos ou comandos 
+formato escolhido (pode usar o seu gerenciador de arquivos ou comandos 
 unzip e tar pelo terminal);
 - Entre na pasta "get-java-XXXX" usando o comando "cd", a linha de comandos;
+- Use um dos comandos abaixo para instalar o script no sistema:
+
+  $ make install
+
+  ou então:
+
+  $ ./INSTALL.sh
+
+  (Ambas as opções realizam a instalação da mesma forma e ao final baixam
+  e instalam a última versão da JRE)
 - Siga o procedimento descrito na seção "COMO USAR".
 
 Terceira forma (mantenha-se atualizado com o git - AJUDE A MELHORAR O SCRIPT):
-- Caso o seu sistema ainda não tenha o git instalado, instale-o com o comando 
-"sudo apt-get install git";
+- Caso o seu sistema ainda não tenha o git instalado, instale-o: 
+
+  $ sudo apt-get install git
+
 - Com o "git" instalado em seu sistema você deverá clonar o repositório no 
 endereço "https://github.com/welrbraga/get-java.git", com o comando a seguir:
 
-$ git clone https://github.com/welrbraga/get-java.git
+  $ git clone https://github.com/welrbraga/get-java.git
+
+- Use um dos comandos abaixo para instalar o script no sistema:
+
+  $ make install
+
+  ou então:
+
+  $ ./INSTALL.sh
+
+  (Ambas as opções realizam a instalação da mesma forma e ao final baixam
+  e instalam a última versão da JRE)
 
 - Siga o procedimento descrito na seção "COMO USAR".
+
 
 COMO USAR
 ---------
 
-Após baixar o arquivo digite:
+A qualquer momento que quiser verificar e instalar uma nova versão da JRE
+invoque o script pela linha de comandos:
 
-$ sudo chmod +x wrb-getjava.sh
-
-$ sudo ./wrb-getjava.sh [flag]
+$ sudo wrb-getjava.sh [flag]
 
 
 As flas permitidas são:
@@ -79,21 +104,6 @@ As flas permitidas são:
   -n - (New) Instala a versão mais recente do JRE disponível e suportada 
        pelo script
 
-
-Instale e mantenha-se atualizado
---------------------------------
-
-Para executar a instalação do script, após baixar o último release ou ter 
-clonado o repositório Git, execute o comando abaixo:
-
-$ sudo ./INSTALL.sh
-
-O script será instalado em uma pasta de binários do sistema (/usr/local/bin)
-e poderá ser executado outras vezes mesmo que você remova o pacote baixado,
-seus arquivos ou o diretório clonado.
-
-Durante a instalação o script será executado e a última versão disponível
-da JRE já será baixada e instalada em seu sistema. 
 
 Nota sobre o download dos pacotes JRE
 -------------------------------------
