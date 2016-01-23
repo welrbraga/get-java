@@ -47,16 +47,10 @@ achar mais adequado para baixar o arquivo;
 formato escolhido (pode usar o seu gerenciador de arquivos ou comandos 
 unzip e tar pelo terminal);
 - Entre na pasta "get-java-XXXX" usando o comando "cd", a linha de comandos;
-- Use um dos comandos abaixo para instalar o script no sistema:
+- Use o comando make para instalar o script no sistema:
 
   $ make install
 
-  ou então:
-
-  $ ./INSTALL.sh
-
-  (Ambas as opções realizam a instalação da mesma forma e ao final baixam
-  e instalam a última versão da JRE)
 - Siga o procedimento descrito na seção "COMO USAR".
 
 Terceira forma (mantenha-se atualizado com o git - AJUDE A MELHORAR O SCRIPT):
@@ -69,16 +63,9 @@ endereço "https://github.com/welrbraga/get-java.git", com o comando a seguir:
 
   $ git clone https://github.com/welrbraga/get-java.git
 
-- Use um dos comandos abaixo para instalar o script no sistema:
+- Use o comando make para instalar o script no sistema:
 
   $ make install
-
-  ou então:
-
-  $ ./INSTALL.sh
-
-  (Ambas as opções realizam a instalação da mesma forma e ao final baixam
-  e instalam a última versão da JRE)
 
 - Siga o procedimento descrito na seção "COMO USAR".
 
@@ -104,6 +91,15 @@ As flas permitidas são:
   -n - (New) Instala a versão mais recente do JRE disponível e suportada 
        pelo script
 
+
+ATUALIZAÇÃO AUTOMATICA
+----------------------
+
+A instalação do script via "make" instala um agendamento em /etc/cron.d/getjava-cron
+para que seja verficado diariamente uma nova versão da JRE.
+
+Havendo uma nova versão o pacote será automaticamente instalado e um registro será
+deixado em /var/log/getjava.log
 
 Nota sobre o download dos pacotes JRE
 -------------------------------------
