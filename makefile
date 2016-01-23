@@ -6,9 +6,9 @@ USER=root
 GROUP=root
 PERM=0755
 FILENAME=wrb-getjava.sh
+CRONFILE=getjava-cron
 
-
-install: installscript installjava
+install: installscript installjava installcron
 
 #Instala o script
 installscript:
@@ -20,5 +20,8 @@ installjava:
 
 uninstall:
 	sudo rm $(BIN)/$(FILENAME)
-#------
+
+#instala a agenda de atualização
+installcron:
+	sudo install -o $(USER) -g $(GROUP) -m 0644 $(CRONFILE) /etc/cron.d
 

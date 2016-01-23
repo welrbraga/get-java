@@ -1,0 +1,7 @@
+# /etc/cron.d/getjava: crontab entries for the getjava scripts
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+LOGFILE=/var/log/wrb-getjava.log
+
+50 7    * * *   root	/usr/local/bin/wrb-getjava.sh -n 2>&1  >>"${LOGFILE}"
