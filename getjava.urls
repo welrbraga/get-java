@@ -12,7 +12,7 @@
 #URLS obtidas em http://www.java.com/pt_BR/download/manual.jsp
 #
 #FORMATO|DATA|ULTIMAJRE
-B|2015-11-17|8u66
+B|2016-01-23|8u71
 #
 #RELEASE|URL64BITS|URL32BITS
 6u30|http://javadl.sun.com/webapps/download/AutoDL?BundleId=58119|http://javadl.sun.com/webapps/download/AutoDL?BundleId=58117
@@ -49,4 +49,5 @@ B|2015-11-17|8u66
 8u60|http://javadl.sun.com/webapps/download/AutoDL?BundleId=109700|http://javadl.sun.com/webapps/download/AutoDL?BundleId=109698
 8u65|http://javadl.sun.com/webapps/download/AutoDL?BundleId=111681|http://javadl.sun.com/webapps/download/AutoDL?BundleId=111679
 8u66|http://javadl.sun.com/webapps/download/AutoDL?BundleId=111741|http://javadl.sun.com/webapps/download/AutoDL?BundleId=111739
+8u71|http://javadl.sun.com/webapps/download/AutoDL?BundleId=114681|http://javadl.sun.com/webapps/download/AutoDL?BundleId=114679
 
