@@ -23,5 +23,8 @@ uninstall:
 
 #instala a agenda de atualização
 installcron:
-	sudo install -o $(USER) -g $(GROUP) -m 0644 $(CRONFILE) /etc/cron.d
+	#Remove o agendamento do cron
+	[ -f /etc/cron.d/$(CRONFILE) ] && sudo rm /etc/cron.d/$(CRONFILE)
+	#Instala o agendamento no anacron
+	sudo install -o $(USER) -g $(GROUP) -m 0755 $(CRONFILE) /etc/cron.daily
 
