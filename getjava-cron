@@ -1,7 +1,15 @@
-# /etc/cron.d/getjava: crontab entries for the getjava scripts
+#!/bin/bash
+
+#Verifica a existência de uma nova atualização da JRE
+#e a instala se necessário.
+
+#Este script foi desenvolvido para ser invocado pelo cron.daily
 
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-LOGFILE=/var/log/wrb-getjava.log
 
-50 7    * * *   root	/usr/local/bin/wrb-getjava.sh -n 2>&1  >>"${LOGFILE}"
+DATE=`/bin/date +%Y-%m-%d`
+LOGFILE=/var/log/wrb-getjava-${DATE}.log
+
+/usr/local/bin/wrb-getjava.sh -n 2>&1  >>"${LOGFILE}"
+
