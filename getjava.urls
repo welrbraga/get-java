@@ -12,7 +12,7 @@
 #URLS obtidas em http://www.java.com/pt_BR/download/manual.jsp
 #
 #FORMATO|DATA|ULTIMAJRE
-B|2016-01-23|8u71
+B|2016-02-05|8u73
 #
 #RELEASE|URL64BITS|URL32BITS
 6u30|http://javadl.sun.com/webapps/download/AutoDL?BundleId=58119|http://javadl.sun.com/webapps/download/AutoDL?BundleId=58117
@@ -42,6 +42,7 @@ B|2016-01-23|8u71
 #
 7u71|http://javadl.sun.com/webapps/download/AutoDL?BundleId=97800|http://javadl.sun.com/webapps/download/AutoDL?BundleId=97798
 7u75|http://javadl.sun.com/webapps/download/AutoDL?BundleId=101460|http://javadl.sun.com/webapps/download/AutoDL?BundleId=101458
+#
 8u31|http://javadl.sun.com/webapps/download/AutoDL?BundleId=101400|http://javadl.sun.com/webapps/download/AutoDL?BundleId=101398
 8u40|http://javadl.sun.com/webapps/download/AutoDL?BundleId=103420|http://javadl.sun.com/webapps/download/AutoDL?BundleId=103418
 8u45|http://javadl.sun.com/webapps/download/AutoDL?BundleId=106240|http://javadl.sun.com/webapps/download/AutoDL?BundleId=106238
@@ -50,4 +51,5 @@ B|2016-01-23|8u71
 8u65|http://javadl.sun.com/webapps/download/AutoDL?BundleId=111681|http://javadl.sun.com/webapps/download/AutoDL?BundleId=111679
 8u66|http://javadl.sun.com/webapps/download/AutoDL?BundleId=111741|http://javadl.sun.com/webapps/download/AutoDL?BundleId=111739
 8u71|http://javadl.sun.com/webapps/download/AutoDL?BundleId=114681|http://javadl.sun.com/webapps/download/AutoDL?BundleId=114679
+8u73|http://javadl.sun.com/webapps/download/AutoDL?BundleId=116021|http://javadl.sun.com/webapps/download/AutoDL?BundleId=116019
 
