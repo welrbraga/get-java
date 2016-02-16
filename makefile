@@ -23,8 +23,9 @@ uninstall:
 
 #instala a agenda de atualização
 installcron:
-	#Remove o agendamento do cron
-	[ -f /etc/cron.d/$(CRONFILE) ] && sudo rm /etc/cron.d/$(CRONFILE)
-	#Instala o agendamento no anacron
+	#Instala o agendamento no cron.daily
 	sudo install -o $(USER) -g $(GROUP) -m 0755 $(CRONFILE) /etc/cron.daily
+	#Configura o Anacron -somente se não houver uma configuração pre-existente
+	grep getjava /etc/anacrontab >/dev/null || \
+		echo '1       2       getjava /etc/cron.daily/getjava-cron' |sudo tee -a /etc/anacrontab
 

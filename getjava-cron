@@ -4,6 +4,7 @@
 #e a instala se necessário.
 
 #Este script foi desenvolvido para ser invocado pelo cron.daily
+#ou pelo Anacron
 
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
