@@ -8,7 +8,7 @@ PERM=0755
 FILENAME=wrb-getjava.sh
 CRONFILE=getjava-cron
 
-install: installscript installjava installcron
+install: installscript installcron installjava
 
 #Instala o script
 installscript:
