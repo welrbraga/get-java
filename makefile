@@ -13,7 +13,7 @@ CRONFILE=getjava-cron
 install: installscript installcron installjava
 
 installscript:
-	@[ -f $(BIN)/$(FILENAME) ] && sudo rm -v $(BIN)/$(FILENAME)
+	@if [ -f $(BIN)/$(FILENAME) ]; then sudo rm -v $(BIN)/$(FILENAME); fi
 	@sudo install -Cv -o $(USER) -g $(GROUP) -m $(PERM) $(FILENAME) $(BIN)/$(FILENAMEINSTALL)
 
 installjava:
