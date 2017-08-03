@@ -12,5 +12,4 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DATE=`/bin/date +%Y-%m-%d`
 LOGFILE=/var/log/wrb-getjava-${DATE}.log
 
-/usr/local/bin/wrb-getjava.sh -n 2>&1  >>"${LOGFILE}"
-
+/usr/local/bin/wrb-getjava -n 2>&1  >>"${LOGFILE}"
