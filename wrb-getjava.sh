@@ -6,17 +6,13 @@
 #Lista todos os releases de JRE disponíveis para download
 function list_releases() {
     echo "Os seguintes releases do JRE estão disponíveis para download"
-    #grep -Ev '^#|^$' "${CACHEDIR}/${URLFILE}"| cut -d'|' -f 1
-    awk -F\| '$1 !~ /\#/ { print $1 }' "${CACHEDIR}/${URLFILE}"
+    awk -F\| '$1 !~ /^#|^$/ { print $1 }' "${CACHEDIR}/${URLFILE}"
 }
 
 #Le o arquivo de URLs disponíveis e verifica a URL da JRE desejada
 #Recebe dois parâmetros o "formato do arquivo" e a versão desejada do JRE
 function set_release() {
-    #FORMATFILE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 1`
-    FORMATFILE=`awk -F\| '$1 !~ /\#/ { print $1 }' "${CACHEDIR}/${URLFILE}"|head -n1`
-    #LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
-    LASTJRE=`awk -F\| '$1 !~ /\#/ { print $3 }' "${CACHEDIR}/${URLFILE}"|head -n1`
+    read FORMATFILE LASTJRE <<< `awk -F\| 'BEGIN { FORMATO="" } $1 !~ /^#|^$/ { if ( FORMATO == "" ) { FORMATO=$1 ; LASTJRE=$3 }; } END { print FORMATO " " LASTJRE }' "${CACHEDIR}/${URLFILE}"`
     VALIDFORMAT="$1"
     JRERELEASE="$2"
 
@@ -31,12 +27,7 @@ function set_release() {
     else
         echo "Arquivo URLs versão ${FORMATFILE} aceito"
         echo
-        #VERSION=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 1`
-        VERSION=`awk -F\| '$1=="'${JRERELEASE}'" { print $1 }' "${CACHEDIR}/${URLFILE}"`
-        #URL64=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 2`
-        URL64=`awk -F\| '$1=="'${JRERELEASE}'" { print $2 }' "${CACHEDIR}/${URLFILE}"`
-        #URL32=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 3`
-        URL32=`awk -F\| '$1=="'${JRERELEASE}'" { print $3 }' "${CACHEDIR}/${URLFILE}"`
+        read VERSION URL64 URL32 <<< $(awk -F\| '$1=="'${JRERELEASE}'" { print $1 " " $2 " " $3 }' "${CACHEDIR}/${URLFILE}")
     fi
 
     if [ "${VERSION}" == "" ]
