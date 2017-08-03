@@ -94,7 +94,7 @@ function make_alternatives() {
     then
         export `head -n 161 ${CACHEDIR}/${DOWNLOADEDJAVA}|grep "javahome="`
     else
-        javahome=$(dirname `tar tf ${CACHEDIR}/${DOWNLOADEDJAVA}|grep release`)
+        javahome=$(dirname `tar tf ${CACHEDIR}/${DOWNLOADEDJAVA} --wildcards */release`)
         export javahome
     fi
 
