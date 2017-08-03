@@ -18,11 +18,13 @@ function set_release() {
 
     if [ ! "${FORMATFILE}" == "${VALIDFORMAT}" ]
     then
-        echo
-        echo "ERRO: A Versão do arquivo de URLs disponível não é compatível com a versão do script que você está usando."
-        echo "Faça o download da nova versão do script a partir do Github em https://github.com/welrbraga/get-java"
-        echo
-        echo "Abortando!"
+				cat <<EOM
+
+ERRO: A Versão do arquivo de URLs disponível não é compatível com a versão do script que você está usando.
+Faça o download da nova versão do script a partir do Github em https://github.com/welrbraga/get-java
+
+Abortando!
+EOM
         exit
     else
         echo "Arquivo URLs versão ${FORMATFILE} aceito"
@@ -68,12 +70,15 @@ function get_java() {
         echo "* Obtendo o Java ${JRERELEASE} a partir do site oficial. Aguarde..."
         wget -q "${URL}" -O "${CACHEDIR}/${DOWNLOADEDJAVA}"
     else
-        echo "AVISO: Usando download já existente em ${CACHEDIR}/${DOWNLOADEDJAVA}."
-        echo "Caso seja necessario baixar outro arquivo exclua este arquivo manualmente"
-        echo "com o comando abaixo:"
-        echo
-        echo "  $ sudo rm ${CACHEDIR}/${DOWNLOADEDJAVA}"
-        echo
+        cat <<EOM
+AVISO: Usando download já existente em ${CACHEDIR}/${DOWNLOADEDJAVA}.
+
+Caso seja necessario baixar outro arquivo exclua este arquivo manualmente
+com o comando abaixo:
+
+	$ sudo rm ${CACHEDIR}/${DOWNLOADEDJAVA}
+
+EOM
     fi
 
     echo "* Descompactando o pacote Java"
@@ -156,12 +161,9 @@ Uso:
 As flags e parâmetros disponíveis para uso são:
 
   -h - Mostra este texto explicativo de ajuda
-
   -i - Instala uma das versões disponíveis informada pelo usuário (use a
        flag '-l' para listar as versões disponíveis)
-
   -l - Lista todas as versões disponíveis e suportadas pelo script
-
   -n - Instala a última versão do JRE disponível e suportada pelo script
 
 EOF
