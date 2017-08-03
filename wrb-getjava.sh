@@ -190,6 +190,13 @@ function get_table() {
 # INICIO DO SCRIPT
 ###############################################################################
 
+#Escalonamento global para root
+if [ ! "$USER" == "root" ]; then
+  echo "* Usando o sudo para adquirir privilégios de root antes de invocar este script" >&2
+  sudo "$0" "$@"
+  exit $?
+fi
+
 URLCACHE="https://raw.githubusercontent.com/welrbraga/get-java/master/getjava.urls"
 CACHEDIR="/var/cache/getjava"
 URLFILE="getjava.urls"
