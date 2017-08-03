@@ -6,14 +6,17 @@
 #Lista todos os releases de JRE disponíveis para download
 function list_releases() {
     echo "Os seguintes releases do JRE estão disponíveis para download"
-    grep -Ev '^#|^$' "${CACHEDIR}/${URLFILE}"| cut -d'|' -f 1
+    #grep -Ev '^#|^$' "${CACHEDIR}/${URLFILE}"| cut -d'|' -f 1
+    awk -F\| '$1 !~ /\#/ { print $1 }' "${CACHEDIR}/${URLFILE}"
 }
 
 #Le o arquivo de URLs disponíveis e verifica a URL da JRE desejada
 #Recebe dois parâmetros o "formato do arquivo" e a versão desejada do JRE
 function set_release() {
-    FORMATFILE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 1`
-    LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
+    #FORMATFILE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 1`
+    FORMATFILE=`awk -F\| '$1 !~ /\#/ { print $1 }' "${CACHEDIR}/${URLFILE}"|head -n1`
+    #LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
+    LASTJRE=`awk -F\| '$1 !~ /\#/ { print $3 }' "${CACHEDIR}/${URLFILE}"|head -n1`
     VALIDFORMAT="$1"
     JRERELEASE="$2"
 
@@ -28,9 +31,12 @@ function set_release() {
     else
         echo "Arquivo URLs versão ${FORMATFILE} aceito"
         echo
-        VERSION=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 1`
-        URL64=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 2`
-        URL32=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 3`
+        #VERSION=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 1`
+        VERSION=`awk -F\| '$1=="'${JRERELEASE}'" { print $1 }' "${CACHEDIR}/${URLFILE}"`
+        #URL64=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 2`
+        URL64=`awk -F\| '$1=="'${JRERELEASE}'" { print $2 }' "${CACHEDIR}/${URLFILE}"`
+        #URL32=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 3`
+        URL32=`awk -F\| '$1=="'${JRERELEASE}'" { print $3 }' "${CACHEDIR}/${URLFILE}"`
     fi
 
     if [ "${VERSION}" == "" ]
@@ -127,7 +133,7 @@ function make_alternatives() {
     #criação dos alternatives
     for file in `ls "${PATHJAVA}/${javahome}/bin"`;
     do
-	echo "  -" $file 
+	echo "  -" $file
 
 	NAME=${file}
 	LINK=/usr/bin/${file}
@@ -159,8 +165,8 @@ Uso:
 As flags e parâmetros disponíveis para uso são:
 
   -h - Mostra este texto explicativo de ajuda
- 
-  -i - Instala uma das versões disponíveis informada pelo usuário (use a 
+
+  -i - Instala uma das versões disponíveis informada pelo usuário (use a
        flag '-l' para listar as versões disponíveis)
 
   -l - Lista todas as versões disponíveis e suportadas pelo script
@@ -175,7 +181,7 @@ EOF
 #Esta função deve ser invocada antes de qualquer outra que requeira
 #Obterm versões de JRE
 function get_table() {
-  
+
     #Cria o diretório de cache caso não exista
     if [ ! -d "${CACHEDIR}" ]
     then
@@ -286,4 +292,3 @@ make_alternatives 1000
 update_manual
 
 echo "Done"
-
