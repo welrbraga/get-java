@@ -5,8 +5,12 @@
 
 #Lista todos os releases de JRE disponíveis para download
 function list_releases() {
-    echo "Os seguintes releases do JRE estão disponíveis para download"
+  if [[ "$1" != "last" ]]; then
+  	echo "Os seguintes releases do JRE estão disponíveis para download"
     awk -F\| '$1 !~ /^#|^$/ { print $1 }' "${CACHEDIR}/${URLFILE}"
+	else
+		awk -F\| '$1 !~ /^#|^$/ { pass } END { print $1 }' "${CACHEDIR}/${URLFILE}"
+	fi
 }
 
 #Le o arquivo de URLs disponíveis e verifica a URL da JRE desejada
@@ -227,7 +231,7 @@ do
       ;;
     "n") #Instalação da última versão da JRE disponível na tabela de urls
       get_table
-      LASTJRE=$(list_releases|tail -n 1)
+      LASTJRE=$(list_releases "last")
       JRE=${LASTJRE}
       ;;
     "l")
