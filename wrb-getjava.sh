@@ -205,14 +205,6 @@ URLCACHE="https://raw.githubusercontent.com/welrbraga/get-java/master/getjava.ur
 CACHEDIR="/var/cache/getjava"
 URLFILE="getjava.urls"
 
-#So prossegue se estiver com privilégios administrativos (root)
-if [ "$UID" != "0" ]
-then
-    echo "ERRO: Você precisa ser administrador para conseguir instalar a máquina Java em seu sistema"
-    echo "Tente novamente com: sudo $0"
-    exit
-fi
-
 #Trata as opções de trabalho do script
 # -i - instala a versão especificada
 # -n - instala a última versão
