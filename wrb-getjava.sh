@@ -6,31 +6,30 @@
 #Lista todos os releases de JRE disponíveis para download
 function list_releases() {
     echo "Os seguintes releases do JRE estão disponíveis para download"
-    grep -Ev '^#|^$' "${CACHEDIR}/${URLFILE}"| cut -d'|' -f 1
+    awk -F\| '$1 !~ /^#|^$/ { print $1 }' "${CACHEDIR}/${URLFILE}"
 }
 
 #Le o arquivo de URLs disponíveis e verifica a URL da JRE desejada
 #Recebe dois parâmetros o "formato do arquivo" e a versão desejada do JRE
 function set_release() {
-    FORMATFILE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 1`
-    LASTJRE=`grep -vE '^$|^#' "${CACHEDIR}/${URLFILE}" |head -n1|cut -d '|' -f 3`
+    read FORMATFILE LASTJRE <<< `awk -F\| 'BEGIN { FORMATO="" } $1 !~ /^#|^$/ { if ( FORMATO == "" ) { FORMATO=$1 ; LASTJRE=$3 }; } END { print FORMATO " " LASTJRE }' "${CACHEDIR}/${URLFILE}"`
     VALIDFORMAT="$1"
     JRERELEASE="$2"
 
     if [ ! "${FORMATFILE}" == "${VALIDFORMAT}" ]
     then
-        echo
-        echo "ERRO: A Versão do arquivo de URLs disponível não é compatível com a versão do script que você está usando."
-        echo "Faça o download da nova versão do script a partir do Github em https://github.com/welrbraga/get-java"
-        echo
-        echo "Abortando!"
+				cat <<EOM
+
+ERRO: A Versão do arquivo de URLs disponível não é compatível com a versão do script que você está usando.
+Faça o download da nova versão do script a partir do Github em https://github.com/welrbraga/get-java
+
+Abortando!
+EOM
         exit
     else
         echo "Arquivo URLs versão ${FORMATFILE} aceito"
         echo
-        VERSION=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 1`
-        URL64=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 2`
-        URL32=`grep "^${JRERELEASE}|" "${CACHEDIR}/${URLFILE}"|cut -d '|' -f 3`
+        read VERSION URL64 URL32 <<< $(awk -F\| '$1=="'${JRERELEASE}'" { print $1 " " $2 " " $3 }' "${CACHEDIR}/${URLFILE}")
     fi
 
     if [ "${VERSION}" == "" ]
@@ -71,12 +70,15 @@ function get_java() {
         echo "* Obtendo o Java ${JRERELEASE} a partir do site oficial. Aguarde..."
         wget -q "${URL}" -O "${CACHEDIR}/${DOWNLOADEDJAVA}"
     else
-        echo "AVISO: Usando download já existente em ${CACHEDIR}/${DOWNLOADEDJAVA}."
-        echo "Caso seja necessario baixar outro arquivo exclua este arquivo manualmente"
-        echo "com o comando abaixo:"
-        echo
-        echo "  $ sudo rm ${CACHEDIR}/${DOWNLOADEDJAVA}"
-        echo
+        cat <<EOM
+AVISO: Usando download já existente em ${CACHEDIR}/${DOWNLOADEDJAVA}.
+
+Caso seja necessario baixar outro arquivo exclua este arquivo manualmente
+com o comando abaixo:
+
+	$ sudo rm ${CACHEDIR}/${DOWNLOADEDJAVA}
+
+EOM
     fi
 
     echo "* Descompactando o pacote Java"
@@ -97,7 +99,7 @@ function make_alternatives() {
     then
         export `head -n 161 ${CACHEDIR}/${DOWNLOADEDJAVA}|grep "javahome="`
     else
-        javahome=$(dirname `tar tf ${CACHEDIR}/${DOWNLOADEDJAVA}|grep release`)
+        javahome=$(dirname `tar tf ${CACHEDIR}/${DOWNLOADEDJAVA} --wildcards */release`)
         export javahome
     fi
 
@@ -127,7 +129,7 @@ function make_alternatives() {
     #criação dos alternatives
     for file in `ls "${PATHJAVA}/${javahome}/bin"`;
     do
-	echo "  -" $file 
+	echo "  -" $file
 
 	NAME=${file}
 	LINK=/usr/bin/${file}
@@ -159,12 +161,9 @@ Uso:
 As flags e parâmetros disponíveis para uso são:
 
   -h - Mostra este texto explicativo de ajuda
- 
-  -i - Instala uma das versões disponíveis informada pelo usuário (use a 
+  -i - Instala uma das versões disponíveis informada pelo usuário (use a
        flag '-l' para listar as versões disponíveis)
-
   -l - Lista todas as versões disponíveis e suportadas pelo script
-
   -n - Instala a última versão do JRE disponível e suportada pelo script
 
 EOF
@@ -175,7 +174,7 @@ EOF
 #Esta função deve ser invocada antes de qualquer outra que requeira
 #Obterm versões de JRE
 function get_table() {
-  
+
     #Cria o diretório de cache caso não exista
     if [ ! -d "${CACHEDIR}" ]
     then
@@ -286,4 +285,3 @@ make_alternatives 1000
 update_manual
 
 echo "Done"
-
