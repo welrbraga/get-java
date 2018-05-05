@@ -12,7 +12,7 @@
 #URLS obtidas em http://www.java.com/pt_BR/download/manual.jsp
 #
 #FORMATO|DATA|ULTIMAJRE
-B|2018-02-02|8u161
+B|2018-04-17|8u171
 #
 #RELEASE|URL64BITS|URL32BITS
 6u30|http://javadl.sun.com/webapps/download/AutoDL?BundleId=58119|http://javadl.sun.com/webapps/download/AutoDL?BundleId=58117
@@ -60,3 +60,4 @@ B|2018-02-02|8u161
 8u131|http://javadl.oracle.com/webapps/download/AutoDL?BundleId=220305_d54c1d3a095b4ff2b6607d096fa80163|http://javadl.oracle.com/webapps/download/AutoDL?BundleId=220303_d54c1d3a095b4ff2b6607d096fa80163
 8u144|http://javadl.oracle.com/webapps/download/AutoDL?BundleId=225345_090f390dda5b47b9b721c7dfaa008135|http://javadl.oracle.com/webapps/download/AutoDL?BundleId=225343_090f390dda5b47b9b721c7dfaa008135
 8u161|http://javadl.oracle.com/webapps/download/AutoDL?BundleId=230532_2f38c3b165be4555a1fa6e98c45e0808|http://javadl.oracle.com/webapps/download/AutoDL?BundleId=230530_2f38c3b165be4555a1fa6e98c45e0808
+8u171|http://javadl.oracle.com/webapps/download/AutoDL?BundleId=233162_512cd62ec5174c3487ac17c61aaa89e8|http://javadl.oracle.com/webapps/download/AutoDL?BundleId=233160_512cd62ec5174c3487ac17c61aaa89e8
